@@ -7,6 +7,6 @@ public interface Tokenizer {
     String peek();
     boolean peek(String s);
     String consume();
-    void consume(String s);
+    boolean consume(String s);
 
 }

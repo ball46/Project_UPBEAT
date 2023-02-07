@@ -32,13 +32,19 @@ public class Tokenizer_im implements Tokenizer {
         return result;
     }
     @Override
-    public void consume(String s) throws TokenizerError {
-        if(peek(s)) consume();
-        else throw new NoSuchElementException();
+    public boolean consume(String s) throws TokenizerError {
+        if(!hasNextToken()) throw new TokenizerError.Nextnull();
+        else{
+            if(next.equals(s)) {
+                computeNext();
+                return true;
+            }else return false;
+        }
     }
     private void computeNext() throws TokenizerError{
         String check = "+-*/(){}^=";
         StringBuilder s = new StringBuilder();
+        if(src == null) return;
         while (pos < src.length() && Character.isWhitespace(src.charAt(pos))) pos++;
         if(pos == src.length()) {
             next = null;
@@ -46,13 +52,11 @@ public class Tokenizer_im implements Tokenizer {
         }
         char c = src.charAt(pos);
         if(Character.isDigit(c)) {
-            s.append(c);
             while (pos < src.length() && Character.isDigit(src.charAt(pos))) {
                 s.append(src.charAt(pos));
                 pos++;
             }
         } else if (Character.isAlphabetic(c)) {
-            s.append(c);
             while (pos < src.length() && Character.isAlphabetic(src.charAt(pos))) {
                 s.append(src.charAt(pos));
                 pos++;
@@ -61,7 +65,7 @@ public class Tokenizer_im implements Tokenizer {
             s.append(src.charAt(pos));
             pos++;
         }else{
-            throw new TokenizerError.Unknownword();
+            throw new TokenizerError.Unknownword(c);
         }
         next = s.toString();
     }
