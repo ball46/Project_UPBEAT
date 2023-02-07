@@ -1,6 +1,6 @@
 package Grammar.AST;
 
-public class RegionNode implements Nodes{
+public class RegionNode implements Node {
     private final long amount;
     private final String actionRe;
     public RegionNode(long amount, String actionRe) {

@@ -2,7 +2,7 @@ package Grammar.AST;
 
 import java.util.Map;
 
-public class NuberNode extends ExprNodes{
+public class NuberNode extends ExprNode {
     private final long value;
 
     public NuberNode(long value) {

@@ -1,11 +1,11 @@
 package Grammar.AST;
 
-public class IfNode implements Nodes{
-    private final Nodes condition;
-    private final Nodes trueBranch;
-    private final Nodes falseBranch;
+public class IfNode implements Node {
+    private final Node condition;
+    private final Node trueBranch;
+    private final Node falseBranch;
 
-    public IfNode(ExprNodes condition, Nodes trueBranch, Nodes falseBranch) {
+    public IfNode(ExprNode condition, Node trueBranch, Node falseBranch) {
         this.condition = condition;
         this.trueBranch = trueBranch;
         this.falseBranch = falseBranch;

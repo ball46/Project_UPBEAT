@@ -2,9 +2,9 @@ package Grammar.AST;
 
 import java.util.Map;
 
-public class Identifier extends ExprNodes{
+public class IdentifierNode extends ExprNode {
     private final String idf;
-    public Identifier(String idf) {
+    public IdentifierNode(String idf) {
         this.idf = idf;
     }
     @Override

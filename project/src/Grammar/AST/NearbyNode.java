@@ -1,6 +1,6 @@
 package Grammar.AST;
 
-public class NearbyNode extends ExprNodes{
+public class NearbyNode extends ExprNode {
     private final String direction;
 
     public NearbyNode(String direction) {

@@ -1,5 +1,5 @@
 package Grammar.AST;
 
-public interface Nodes {
+public interface Node {
     void evaluate();
 }

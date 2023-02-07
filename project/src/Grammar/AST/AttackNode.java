@@ -1,6 +1,6 @@
 package Grammar.AST;
 
-public class AttackNode implements Nodes {
+public class AttackNode implements Node {
     private final String direction;
     private final long moneyattack;
     public AttackNode(String direction, long moneyattack) {

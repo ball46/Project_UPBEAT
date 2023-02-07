@@ -1,17 +1,17 @@
 package Grammar.AST;
 
-public class AssigmentNode implements Nodes{
+public class AssigmentNode implements Node {
     private final String identifier;
-    private final Nodes expression;
+    private final Node expression;
 
-    public AssigmentNode(String identifier, Nodes expression) {
+    public AssigmentNode(String identifier, Node expression) {
         this.identifier = identifier;
         this.expression = expression;
     }
     public String getIdentifier() {
         return identifier;
     }
-    public Nodes getExpression() {
+    public Node getExpression() {
         return expression;
     }
     @Override

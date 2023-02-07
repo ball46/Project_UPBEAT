@@ -2,11 +2,11 @@ package Grammar.AST;
 
 import java.util.Map;
 
-public class BinaryOperationNode extends ExprNodes{
-    private final ExprNodes left;
-    private final ExprNodes right;
+public class BinaryOperationNode extends ExprNode {
+    private final ExprNode left;
+    private final ExprNode right;
     private final String operator;
-    public BinaryOperationNode(ExprNodes left, ExprNodes right, String operator) {
+    public BinaryOperationNode(ExprNode left, ExprNode right, String operator) {
         this.left = left;
         this.right = right;
         this.operator = operator;

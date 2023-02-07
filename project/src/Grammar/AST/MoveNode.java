@@ -1,6 +1,6 @@
 package Grammar.AST;
 
-public class MoveNode implements Nodes{
+public class MoveNode implements Node {
     private final String direction;
 
     public MoveNode(String direction) {

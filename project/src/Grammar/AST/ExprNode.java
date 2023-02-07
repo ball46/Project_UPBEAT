@@ -1,7 +1,7 @@
 package Grammar.AST;
 import java.util.Map;
 
-public class ExprNodes implements Nodes{
+public class ExprNode implements Node {
     public long eval(Map<String, Long> mem){
         return 0;
     }

@@ -1,9 +1,9 @@
 package Grammar.AST;
 
-public class WhileNode implements Nodes{
-    private final Nodes condition;
-    private final Nodes body;
-    public WhileNode(Nodes condition, Nodes body) {
+public class WhileNode implements Node {
+    private final Node condition;
+    private final Node body;
+    public WhileNode(Node condition, Node body) {
         this.condition = condition;
         this.body = body;
     }
