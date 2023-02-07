@@ -1,7 +1,7 @@
 package Grammar.AST;
 
 public class IfNode implements Nodes{
-    private final ExprNodes condition;
+    private final Nodes condition;
     private final Nodes trueBranch;
     private final Nodes falseBranch;
 
