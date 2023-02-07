@@ -3,9 +3,9 @@ package Grammar.AST;
 import java.util.Map;
 
 public class NuberNode extends ExprNodes{
-    private final int value;
+    private final long value;
 
-    public NuberNode(int value) {
+    public NuberNode(long value) {
         this.value = value;
     }
 
