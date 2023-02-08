@@ -1,10 +1,10 @@
 package Grammar.AST;
 
-public class AssigmentNode implements Node {
+public class AssignmentNode implements Node {
     private final String identifier;
     private final Node expression;
 
-    public AssigmentNode(String identifier, Node expression) {
+    public AssignmentNode(String identifier, Node expression) {
         this.identifier = identifier;
         this.expression = expression;
     }

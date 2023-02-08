@@ -2,10 +2,10 @@ package Grammar.AST;
 
 import java.util.Map;
 
-public class NuberNode extends ExprNode {
+public class NumberNode extends ExprNode {
     private final long value;
 
-    public NuberNode(long value) {
+    public NumberNode(long value) {
         this.value = value;
     }
 

@@ -6,7 +6,7 @@ public class BinaryOperationNode extends ExprNode {
     private final ExprNode left;
     private final ExprNode right;
     private final String operator;
-    public BinaryOperationNode(ExprNode left, ExprNode right, String operator) {
+    public BinaryOperationNode(ExprNode left, String operator, ExprNode right) {
         this.left = left;
         this.right = right;
         this.operator = operator;
