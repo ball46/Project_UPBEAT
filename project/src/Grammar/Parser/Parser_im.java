@@ -197,7 +197,7 @@ public class Parser_im implements Parser {/*
     }
 
     private ExprNode parseInfoExpression() {
-        if(tkz.peek("oppnent")){
+        if(tkz.peek("opponent")){
             tkz.consume();
             return new OpponentNode();
         }else if(tkz.peek("nearby")){
