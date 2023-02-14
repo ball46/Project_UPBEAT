@@ -47,22 +47,27 @@ public class Parser_im implements Parser {/*
         if(tkz.peek("if")){
             return parseIfStatement();
         }else if(tkz.peek("while")){
-//            Node whileNode = parseWhileStatement();
-//            return whileNode;
+            return parseWhileStatement();
         }else if(tkz.peek("{")){
-//            Node blockNode = parseBlockStatement();
-//            return blockNode;
+            return parseBlockStatement();
         }else{
             return parseCommand();
         }
-        return null;
     }
     
     private Node parseBlockStatement() {
         tkz.consume("{");
-        Node blockNode = parseStatement();
+        List<Node> blockNodes = findAllNodes();
         tkz.consume("}");
-        return blockNode;
+        return new BlockNode(blockNodes);
+    }
+
+    private List<Node> findAllNodes() {
+        List<Node> nodes = new ArrayList<>();
+        while(tkz.hasNextToken()){
+            nodes.add(parseStatement());
+        }
+        return nodes;
     }
 
     private Node parseIfStatement() {
@@ -78,7 +83,14 @@ public class Parser_im implements Parser {/*
     }
     
     private Node parseWhileStatement() {
-        return null;
+        tkz.consume("while");
+        tkz.consume("(");
+        ExprNode expr = parseExpression();
+        tkz.consume(")");
+        tkz.consume("{");
+        Node body = parseStatement();
+        tkz.consume("}");
+        return new WhileNode( expr, body );
     }
 
     private Node parseCommand() {
