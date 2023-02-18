@@ -1,9 +1,10 @@
 package Grammar.Parser;
 
 import Grammar.AST.*;
-import Grammar.AST.Eval.*;
+import Grammar.AST.State.*;
 import Grammar.AST.Expr.*;
 import Grammar.Tokenizer.Tokenizer;
+import Type.Direction;
 
 import java.util.*;
 
@@ -33,24 +34,24 @@ public class Parser_im implements Parser {/*
         mem = new HashMap<>();
     }
     @Override
-    public Node.EvalNode parse() {
-        Node.EvalNode node = parsePlan();
+    public Node.StateNode parse() {
+        Node.StateNode node = parsePlan();
         if(tkz.hasNextToken()) throw new RuntimeException("token is not null : " + tkz.peek());
         return node;
     }
 
-    private Node.EvalNode parsePlan() {
-        Node.EvalNode current = parseStatement();
-        current.next = lookNext();
+    private Node.StateNode parsePlan() {
+        Node.StateNode current = parseStatement();
+        current.nextState = lookNext();
         return current;
     }
 
-    private Node.EvalNode lookNext() {
+    private Node.StateNode lookNext() {
         //I don't know to do this
         return null;
     }
 
-    private Node.EvalNode parseStatement() {
+    private Node.StateNode parseStatement() {
         if(tkz.peek("if")){
             return parseIfStatement();
         }else if(tkz.peek("while")){
@@ -62,7 +63,7 @@ public class Parser_im implements Parser {/*
         }
     }
     
-    private Node.EvalNode parseBlockStatement() {
+    private Node.StateNode parseBlockStatement() {
         tkz.consume("{");
         List<Node> blockNodes = findAllNodes();
         tkz.consume("}");
@@ -77,30 +78,30 @@ public class Parser_im implements Parser {/*
         return nodes;
     }
 
-    private Node.EvalNode parseIfStatement() {
+    private Node.StateNode parseIfStatement() {
         tkz.consume("if");
         tkz.consume("(");
         Node.ExprNode expr = parseExpression();
         tkz.consume(")");
         tkz.consume("then");
-        Node.EvalNode thenNode = parseStatement();
+        Node.StateNode thenNode = parseStatement();
         tkz.consume("else");
-        Node.EvalNode elseNode = parseStatement();
+        Node.StateNode elseNode = parseStatement();
         return new IfNode( expr, thenNode, elseNode );
     }
     
-    private Node.EvalNode parseWhileStatement() {
+    private Node.StateNode parseWhileStatement() {
         tkz.consume("while");
         tkz.consume("(");
         Node.ExprNode expr = parseExpression();
         tkz.consume(")");
         tkz.consume("{");
-        Node.EvalNode body = parseStatement();
+        Node.StateNode body = parseStatement();
         tkz.consume("}");
         return new WhileNode( expr, body );
     }
 
-    private Node.EvalNode parseCommand() {
+    private Node.StateNode parseCommand() {
         if(tkz.peek("done") || tkz.peek("relocate") || tkz.peek("move")
                 || tkz.peek("invest") || tkz.peek("collect") || tkz.peek("shoot")){
             return parseActionCommand();
@@ -108,14 +109,14 @@ public class Parser_im implements Parser {/*
         return parseAssignmentStatement();
     }
 
-    private Node.EvalNode parseAssignmentStatement() {
+    private Node.StateNode parseAssignmentStatement() {
         String identifier = tkz.consume();
         tkz.consume("=");
         Node.ExprNode expr = parseExpression();
         return new AssignmentNode( identifier, expr );
     }
 
-    private Node.EvalNode parseActionCommand() {
+    private Node.StateNode parseActionCommand() {
         String action = tkz.consume();
         return switch (action) {
             case "done" -> new DoneNode();
@@ -128,32 +129,37 @@ public class Parser_im implements Parser {/*
         };
     }
 
-    private Node.EvalNode parseMoveCommand() {
+    private Node.StateNode parseMoveCommand() {
         tkz.consume();
-        String direction = parseDirection();
+        Direction direction = parseDirection();
         return new MoveNode( direction );
     }
 
-    private String parseDirection() {
+    private Direction parseDirection() {
         String direction = tkz.consume();
         return switch (direction) {
-            case "up","down","upleft","upright","downleft","downright" -> direction;
+            case "up" -> Direction.Up;
+            case "down" -> Direction.Down;
+            case "upleft" -> Direction.UpLeft;
+            case "upright" -> Direction.UpRight;
+            case "downleft" -> Direction.DownLeft;
+            case "downright" -> Direction.DownRight;
             default -> throw new RuntimeException("unknown direction: " + tkz.peek());
         };
     }
 
-    private Node.EvalNode parseInvestCommand() {
+    private Node.StateNode parseInvestCommand() {
         Node.ExprNode expr = parseExpression();
         return new InvestNode( expr );
     }
 
-    private Node.EvalNode parseCollectCommand() {
+    private Node.StateNode parseCollectCommand() {
         Node.ExprNode expr = parseExpression();
         return new CollectNode( expr );
     }
 
-    private Node.EvalNode parseShootCommand() {
-        String direction = parseDirection();
+    private Node.StateNode parseShootCommand() {
+        Direction direction = parseDirection();
         Node.ExprNode expr = parseExpression();
         return new AttackNode( direction, expr );
     }
@@ -210,7 +216,7 @@ public class Parser_im implements Parser {/*
             return new OpponentNode();
         }else if(tkz.peek("nearby")){
             tkz.consume();
-            String direction = parseDirection();
+            Direction direction = parseDirection();
             return new NearbyNode(direction);
         }else throw new RuntimeException("unknown info expression: " + tkz.peek());
     }

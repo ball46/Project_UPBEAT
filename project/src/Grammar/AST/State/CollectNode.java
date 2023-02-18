@@ -1,16 +1,17 @@
-package Grammar.AST.Eval;
+package Grammar.AST.State;
 
 import Game_state.Game.Game;
 import Grammar.AST.Node;
 
-public class CollectNode extends Node.EvalNode {
+public class CollectNode extends Node.StateNode {
     private final Node.ExprNode expr;
 
     public CollectNode(Node.ExprNode expr) {
         this.expr = expr;
     }
     @Override
-    public EvalNode evaluate(Game game) {
-        return new EvalNode();
+    public StateNode evaluate(Game game) {
+        game.collect(expr.eval(game));
+        return nextState;
     }
 }

@@ -45,7 +45,7 @@ public class Tokenizer_im implements Tokenizer {
         return Character.isWhitespace(c) || c == '#' ;
     }
     private void readComment() {
-        while(pos <src.length() && src.charAt(pos) != '\n') pos++;
+        while(pos <src.length()) pos++;
     }
     private void computeNext() throws TokenizerError{
         String check = "+-*/(){}^=";

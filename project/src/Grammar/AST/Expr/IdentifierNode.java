@@ -1,8 +1,7 @@
 package Grammar.AST.Expr;
 
+import Game_state.Game.Game;
 import Grammar.AST.Node;
-
-import java.util.Map;
 
 public class IdentifierNode extends Node.ExprNode {
     private final String idf;
@@ -10,9 +9,9 @@ public class IdentifierNode extends Node.ExprNode {
         this.idf = idf;
     }
     @Override
-    public long eval(Map<String, Long> memory) {
-        if(memory.containsKey(idf)){
-            return memory.get(idf);
+    public long eval(Game game) {
+        if(game.getIdentifiers().containsKey(idf)){
+            return game.getIdentifiers().get(idf);
         }else{
             throw new RuntimeException("Identifier" + idf + " not found");
         }

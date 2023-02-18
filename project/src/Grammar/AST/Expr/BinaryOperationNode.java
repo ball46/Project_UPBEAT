@@ -1,8 +1,7 @@
 package Grammar.AST.Expr;
 
+import Game_state.Game.Game;
 import Grammar.AST.Node;
-
-import java.util.Map;
 
 public class BinaryOperationNode extends Node.ExprNode {
     private final ExprNode left;
@@ -15,9 +14,9 @@ public class BinaryOperationNode extends Node.ExprNode {
     }
 
     @Override
-    public long eval(Map<String, Long> memory) {
-        long leftVal = left.eval(memory);
-        long rightVal = right.eval(memory);
+    public long eval(Game game) {
+        long leftVal = left.eval(game);
+        long rightVal = right.eval(game);
         return switch (operator) {
             case "+" -> leftVal + rightVal;
             case "-" -> leftVal - rightVal;

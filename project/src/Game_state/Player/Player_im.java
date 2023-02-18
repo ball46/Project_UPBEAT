@@ -1,21 +1,21 @@
 package Game_state.Player;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Player_im implements Player{
-    private String name;
+    private final String name;
     private double budget;
     private boolean life;
-    private int[] CityCenter, CityCrew;//has 2 member [0] is rows, [1] is cols
-    private Map<String, Long> identifier;
-    public Player_im(String name){
+    private final int[] CityCenter, CityCrew;//has 2 member [0] is rows, [1] is cols
+    private final Map<String, Long> identifier;
+    public Player_im(String name,double budget, double centerDep) {
         this.name = name;
-    }
-    public Player_im(double budget, int[] CityCenter) {
         this.budget = budget;
         this.life = true;
-        this.CityCenter = CityCenter;
+        this.CityCenter = new int[2];//TODO change it in future
         this.CityCrew = this.CityCenter;
+        this.identifier = new HashMap<>();
     }
 
     @Override
@@ -52,11 +52,6 @@ public class Player_im implements Player{
     }
 
     @Override
-    public void moveCityCenter(int[] direction) {
-        this.CityCenter = direction;
-    }
-
-    @Override
     public int[] getCityCrewLocation() {
         return this.CityCrew;
     }
@@ -72,7 +67,7 @@ public class Player_im implements Player{
     }
 
     @Override
-    public long attack() {
+    public long attack(String direction) {
         return 0;
     }
 

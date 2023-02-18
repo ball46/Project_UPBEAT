@@ -1,8 +1,7 @@
 package Grammar.AST.Expr;
 
+import Game_state.Game.Game;
 import Grammar.AST.Node;
-
-import java.util.Map;
 
 public class NumberNode extends Node.ExprNode {
     private final long value;
@@ -12,7 +11,7 @@ public class NumberNode extends Node.ExprNode {
     }
 
     @Override
-    public long eval(Map<String, Long> memory) {
+    public long eval(Game game) {
         return value;
     }
 

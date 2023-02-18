@@ -1,11 +1,11 @@
-package Grammar.AST.Eval;
+package Grammar.AST.State;
 
 import Game_state.Game.Game;
 import Grammar.AST.Node;
 
 import java.util.Map;
 
-public class AssignmentNode extends Node.EvalNode {
+public class AssignmentNode extends Node.StateNode {
     private final String identifier;
     private final Node.ExprNode expression;
 
@@ -20,9 +20,9 @@ public class AssignmentNode extends Node.EvalNode {
         return expression;
     }
     @Override
-    public Node.EvalNode evaluate(Game game) {
+    public StateNode evaluate(Game game) {
         Map<String, Long> mem = game.getPlayer().getIdentifiers();
-        mem.put(identifier, expression.eval(mem));
-        return next;//TODO after implementing game state completely
+        mem.put(identifier, expression.eval(game));
+        return nextState;
     }
 }

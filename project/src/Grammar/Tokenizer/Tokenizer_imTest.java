@@ -84,4 +84,10 @@ class Tokenizer_imTest {
         assertFalse(tokenizer.consume("abc"));
         assertTrue(tokenizer.consume("a"));
     }
+
+    @Test
+    public void testComment() {
+        tokenizer = new Tokenizer_im("# i am ball");
+        assertThrows(TokenizerError.Nextnull.class, () -> tokenizer.consume(""));
+    }
 }

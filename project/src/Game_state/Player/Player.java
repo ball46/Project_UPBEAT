@@ -7,10 +7,9 @@ public interface Player {
     double getBudget();
     void updateBudget(double money);
     void moveCityCrew(String direction);
-    void moveCityCenter(int[] direction);
     int[] getCityCrewLocation();
     int[] getCityCenterLocation();
     boolean life();
-    long attack();
+    long attack(String direction);
     Map<String,Long> getIdentifiers();
 }
