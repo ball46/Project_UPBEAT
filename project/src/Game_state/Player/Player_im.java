@@ -1,12 +1,17 @@
 package Game_state.Player;
 
+import java.util.Map;
+
 public class Player_im implements Player{
     private String name;
     private double budget;
     private boolean life;
     private int[] CityCenter, CityCrew;//has 2 member [0] is rows, [1] is cols
-    public Player_im(String name, double budget, int[] CityCenter) {
+    private Map<String, Long> identifier;
+    public Player_im(String name){
         this.name = name;
+    }
+    public Player_im(double budget, int[] CityCenter) {
         this.budget = budget;
         this.life = true;
         this.CityCenter = CityCenter;
@@ -64,5 +69,15 @@ public class Player_im implements Player{
     @Override
     public boolean life() {
         return this.life;
+    }
+
+    @Override
+    public long attack() {
+        return 0;
+    }
+
+    @Override
+    public Map<String, Long> getIdentifiers() {
+        return identifier;
     }
 }

@@ -1,5 +1,7 @@
 package Game_state.Player;
 
+import java.util.Map;
+
 public interface Player {
     String getName();
     double getBudget();
@@ -9,4 +11,6 @@ public interface Player {
     int[] getCityCrewLocation();
     int[] getCityCenterLocation();
     boolean life();
+    long attack();
+    Map<String,Long> getIdentifiers();
 }

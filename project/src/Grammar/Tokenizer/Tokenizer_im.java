@@ -41,11 +41,20 @@ public class Tokenizer_im implements Tokenizer {
             }else return false;
         }
     }
+    private boolean DoNotCareChar(char c) throws TokenizerError {
+        return Character.isWhitespace(c) || c == '#' ;
+    }
+    private void readComment() {
+        while(pos <src.length() && src.charAt(pos) != '\n') pos++;
+    }
     private void computeNext() throws TokenizerError{
         String check = "+-*/(){}^=";
         StringBuilder s = new StringBuilder();
         if(src == null) return;
-        while (pos < src.length() && Character.isWhitespace(src.charAt(pos))) pos++;
+        while (pos < src.length() && DoNotCareChar(src.charAt(pos))) {
+            if(src.charAt(pos) == '#') readComment();
+            else pos++;
+        }
         if(pos == src.length()) {
             next = null;
             return;
@@ -69,4 +78,5 @@ public class Tokenizer_im implements Tokenizer {
         }
         next = s.toString();
     }
+
 }

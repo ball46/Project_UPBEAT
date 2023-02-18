@@ -1,6 +1,8 @@
 package Grammar.Parser;
 
 import Grammar.AST.*;
+import Grammar.AST.Eval.*;
+import Grammar.AST.Expr.*;
 import Grammar.Tokenizer.Tokenizer;
 
 import java.util.*;
@@ -25,25 +27,30 @@ public class Parser_im implements Parser {/*
     InfoExpression → opponent | nearby Direction
 */
     Tokenizer tkz;
-    List<Node> allNodes;
     Map<String, Long> mem;
     public Parser_im(Tokenizer tkz) {
         this.tkz = tkz;
-        allNodes = new ArrayList<>();
         mem = new HashMap<>();
     }
     @Override
-    public Node parse() {
-        Node node = parsePlan();
+    public Node.EvalNode parse() {
+        Node.EvalNode node = parsePlan();
         if(tkz.hasNextToken()) throw new RuntimeException("token is not null : " + tkz.peek());
         return node;
     }
 
-    private Node parsePlan() {
-        return parseStatement();
+    private Node.EvalNode parsePlan() {
+        Node.EvalNode current = parseStatement();
+        current.next = lookNext();
+        return current;
     }
 
-    private Node parseStatement() {
+    private Node.EvalNode lookNext() {
+        //I don't know to do this
+        return null;
+    }
+
+    private Node.EvalNode parseStatement() {
         if(tkz.peek("if")){
             return parseIfStatement();
         }else if(tkz.peek("while")){
@@ -55,7 +62,7 @@ public class Parser_im implements Parser {/*
         }
     }
     
-    private Node parseBlockStatement() {
+    private Node.EvalNode parseBlockStatement() {
         tkz.consume("{");
         List<Node> blockNodes = findAllNodes();
         tkz.consume("}");
@@ -70,136 +77,125 @@ public class Parser_im implements Parser {/*
         return nodes;
     }
 
-    private Node parseIfStatement() {
+    private Node.EvalNode parseIfStatement() {
         tkz.consume("if");
         tkz.consume("(");
-        ExprNode expr = parseExpression();
+        Node.ExprNode expr = parseExpression();
         tkz.consume(")");
         tkz.consume("then");
-        Node thenNode = parseStatement();
+        Node.EvalNode thenNode = parseStatement();
         tkz.consume("else");
-        Node elseNode = parseStatement();
+        Node.EvalNode elseNode = parseStatement();
         return new IfNode( expr, thenNode, elseNode );
     }
     
-    private Node parseWhileStatement() {
+    private Node.EvalNode parseWhileStatement() {
         tkz.consume("while");
         tkz.consume("(");
-        ExprNode expr = parseExpression();
+        Node.ExprNode expr = parseExpression();
         tkz.consume(")");
         tkz.consume("{");
-        Node body = parseStatement();
+        Node.EvalNode body = parseStatement();
         tkz.consume("}");
         return new WhileNode( expr, body );
     }
 
-    private Node parseCommand() {
-        if(tkz.peek("done") || tkz.consume("relocate") || tkz.consume("move")
-                || tkz.consume("invest") || tkz.consume("collect") || tkz.consume("shoot")){
+    private Node.EvalNode parseCommand() {
+        if(tkz.peek("done") || tkz.peek("relocate") || tkz.peek("move")
+                || tkz.peek("invest") || tkz.peek("collect") || tkz.peek("shoot")){
             return parseActionCommand();
         }
         return parseAssignmentStatement();
     }
 
-    private Node parseAssignmentStatement() {
+    private Node.EvalNode parseAssignmentStatement() {
         String identifier = tkz.consume();
         tkz.consume("=");
-        ExprNode expr = parseExpression();
+        Node.ExprNode expr = parseExpression();
         return new AssignmentNode( identifier, expr );
     }
 
-    private Node parseActionCommand() {
-        if(tkz.peek("done")){
-            tkz.consume();
-            return new DoneNode();
-        }else if(tkz.peek("relocate")){
-            tkz.consume();
-            return new RelocateNode();
-        }else if(tkz.peek("move")){
-            return parseMoveCommand();
-        }else if(tkz.peek("invest")){
-            return parseInvestCommand();
-        }else if(tkz.peek("collect")){
-            return parseCollectCommand();
-        }else if(tkz.peek("shoot")){
-            return parseShootCommand();
-        }else throw new RuntimeException("unknown command: " + tkz.peek());
+    private Node.EvalNode parseActionCommand() {
+        String action = tkz.consume();
+        return switch (action) {
+            case "done" -> new DoneNode();
+            case "relocate" -> new RelocateNode();
+            case "move" -> parseMoveCommand();
+            case "invest" -> parseInvestCommand();
+            case "collect" -> parseCollectCommand();
+            case "shoot" -> parseShootCommand();
+            default -> throw new RuntimeException("unknown command: " + tkz.peek());
+        };
     }
 
-    private Node parseMoveCommand() {
+    private Node.EvalNode parseMoveCommand() {
         tkz.consume();
         String direction = parseDirection();
-        tkz.consume();
         return new MoveNode( direction );
     }
 
     private String parseDirection() {
-        if(tkz.peek("up"))return "up";
-        else if(tkz.peek("down"))return "down";
-        else if(tkz.peek("upleft"))return "upleft";
-        else if(tkz.peek("upright"))return "upright";
-        else if(tkz.peek("downleft"))return "downleft";
-        else if(tkz.peek("downright"))return "downright";
-        else throw new RuntimeException("unknown direction: " + tkz.peek());
+        String direction = tkz.consume();
+        return switch (direction) {
+            case "up","down","upleft","upright","downleft","downright" -> direction;
+            default -> throw new RuntimeException("unknown direction: " + tkz.peek());
+        };
     }
 
-    private Node parseInvestCommand() {
-        String invest = tkz.consume();
-        ExprNode expr = parseExpression();
-        return new RegionNode( expr.eval(mem), invest );
+    private Node.EvalNode parseInvestCommand() {
+        Node.ExprNode expr = parseExpression();
+        return new InvestNode( expr );
     }
 
-    private Node parseCollectCommand() {
-        String collect = tkz.consume();
-        ExprNode expr = parseExpression();
-        return new RegionNode( expr.eval(mem), collect );
+    private Node.EvalNode parseCollectCommand() {
+        Node.ExprNode expr = parseExpression();
+        return new CollectNode( expr );
     }
 
-    private Node parseShootCommand() {
-        tkz.consume();
+    private Node.EvalNode parseShootCommand() {
         String direction = parseDirection();
-        ExprNode expr = parseExpression();
-        return new AttackNode( direction, expr.eval(mem) );
+        Node.ExprNode expr = parseExpression();
+        return new AttackNode( direction, expr );
     }
 
-    private ExprNode parseExpression() {
-        ExprNode left = parseTerm();
+    private Node.ExprNode parseExpression() {
+        Node.ExprNode left = parseTerm();
         while (tkz.peek("+") || tkz.peek("-")) {
             String op = tkz.consume();
-            ExprNode right = parseTerm();
+            Node.ExprNode right = parseTerm();
             left = new BinaryOperationNode( left, op, right );
         }
         return left;
     }
 
-    private ExprNode parseTerm() {
-        ExprNode left = parseFactor();
+    private Node.ExprNode parseTerm() {
+        Node.ExprNode left = parseFactor();
         while (tkz.peek("*") || tkz.peek("/") || tkz.peek("%")) {
             String op = tkz.consume();
-            ExprNode right = parseFactor();
+            Node.ExprNode right = parseFactor();
             left = new BinaryOperationNode( left, op, right );
         }
         return left;
     }
 
-    private ExprNode parseFactor() {
-        ExprNode left = parsePower();
+    private Node.ExprNode parseFactor() {
+        Node.ExprNode left = parsePower();
         while (tkz.peek("^")) {
             String op = tkz.consume();
-            ExprNode right = parsePower();
+            Node.ExprNode right = parsePower();
             left = new BinaryOperationNode( left, op, right );
         }
         return left;
     }
 
-    private ExprNode parsePower() {
+    private Node.ExprNode parsePower() {
         if(Character.isDigit(tkz.peek().charAt(0))){
             return new NumberNode( Long.parseLong(tkz.consume()) );
         }else if(Character.isAlphabetic(tkz.peek().charAt(0))){
             return new IdentifierNode( tkz.consume() );
         }else if(tkz.peek("(")){
             tkz.consume("(");
-            ExprNode expr = parseExpression();
+            Node.ExprNode expr = parseExpression();
             tkz.consume(")");
             return expr;
         }else if(tkz.peek("opponent") || tkz.peek("nearby")){
@@ -208,7 +204,7 @@ public class Parser_im implements Parser {/*
         return null;
     }
 
-    private ExprNode parseInfoExpression() {
+    private Node.ExprNode parseInfoExpression() {
         if(tkz.peek("opponent")){
             tkz.consume();
             return new OpponentNode();

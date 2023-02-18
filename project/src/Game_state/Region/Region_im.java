@@ -1,9 +1,14 @@
 package Game_state.Region;
 
 public class Region_im implements Region {
-    private int[] location;
+    private final int[] location;
     private String owner;
     private double budget;
+    public Region_im(int row, int col){
+        this.location = new int[]{row,col};
+        this.owner = "null";
+        this.budget = 0;
+    }
     @Override
     public String getOwner() {
         return owner;
