@@ -9,9 +9,6 @@ import java.util.Map;
 
 public interface Game {
     Map<String, Long> getIdentifiers();
-    Player getPlayer();
-    Region getRegion();
-    List<Region> getTerritory();
     void attack(Direction direction, long money);
     void collect(long money);
     void invest(long money);

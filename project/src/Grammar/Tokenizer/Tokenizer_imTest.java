@@ -2,6 +2,10 @@ package Grammar.Tokenizer;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class Tokenizer_imTest {
@@ -86,8 +90,8 @@ class Tokenizer_imTest {
     }
 
     @Test
-    public void testComment() {
-        tokenizer = new Tokenizer_im("# i am ball");
-        assertThrows(TokenizerError.Nextnull.class, () -> tokenizer.consume(""));
+    public void testComment() throws IOException {
+        tokenizer = new Tokenizer_im("# i am ball\n 555 \n # no no i am boss");
+        assertEquals("555", tokenizer.consume());
     }
 }

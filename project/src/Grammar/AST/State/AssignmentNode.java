@@ -21,7 +21,7 @@ public class AssignmentNode extends Node.StateNode {
     }
     @Override
     public StateNode evaluate(Game game) {
-        Map<String, Long> mem = game.getPlayer().getIdentifiers();
+        Map<String, Long> mem = game.getIdentifiers();
         mem.put(identifier, expression.eval(game));
         return nextState;
     }

@@ -1,5 +1,4 @@
 package Grammar.Tokenizer;
-import java.util.NoSuchElementException;
 
 public class Tokenizer_im implements Tokenizer {
     private final String src;
@@ -44,15 +43,15 @@ public class Tokenizer_im implements Tokenizer {
     private boolean DoNotCareChar(char c) throws TokenizerError {
         return Character.isWhitespace(c) || c == '#' ;
     }
-    private void readComment() {
-        while(pos <src.length()) pos++;
+    private void readText() {
+        while(pos <src.length() && src.charAt(pos) != '\n') pos++;
     }
     private void computeNext() throws TokenizerError{
         String check = "+-*/(){}^=";
         StringBuilder s = new StringBuilder();
         if(src == null) return;
         while (pos < src.length() && DoNotCareChar(src.charAt(pos))) {
-            if(src.charAt(pos) == '#') readComment();
+            if(src.charAt(pos) == '#') readText();
             else pos++;
         }
         if(pos == src.length()) {

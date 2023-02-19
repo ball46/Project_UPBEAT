@@ -16,7 +16,7 @@ class NodeTest {
     Game game = new Game_im();
     Node.StateNode node, trueNode = new DoneNode(), falseNode = new DoneNode();
     Node.ExprNode expr;
-    Map<String, Long> map = game.getPlayer().getIdentifiers();
+    Map<String, Long> map = game.getIdentifiers();
     String var;
     @Test
     void testIfNode(){

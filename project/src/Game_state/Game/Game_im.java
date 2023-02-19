@@ -14,30 +14,15 @@ public class Game_im implements Game{
     private final List<Region> territory;
     private final Map<String, Long> identifiers;
     public Game_im() {
-        this.player1 = Configuration.createPlayer("ball");
-        this.player2 = Configuration.createPlayer("boss");
-        this.territory = Configuration.createMap();
+        this.player1 = ReadData.createPlayer("ball");
+        this.player2 = ReadData.createPlayer("boss");
+        this.territory = ReadData.createMap();
         identifiers = new HashMap<>();
     }
 
     @Override
     public Map<String, Long> getIdentifiers() {
         return identifiers;
-    }
-
-    @Override
-    public Player getPlayer() {
-        return player1;
-    }
-
-    @Override
-    public Region getRegion() {
-        return null;
-    }
-
-    @Override
-    public List<Region> getTerritory() {
-        return territory;
     }
 
     @Override

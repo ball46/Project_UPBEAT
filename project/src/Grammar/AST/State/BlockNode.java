@@ -5,7 +5,7 @@ import Grammar.AST.Node;
 import java.util.List;
 
 public class BlockNode extends Node.StateNode {
-    private List<Node> statements;
+    private final List<Node> statements;
     public BlockNode(List<Node> statements) {
         this.statements = statements;
     }
