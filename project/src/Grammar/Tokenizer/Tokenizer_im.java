@@ -21,14 +21,17 @@ public class Tokenizer_im implements Tokenizer {
     }
     @Override
     public boolean peek(String s) {
+        if (!hasNextToken()) return false;
         return peek().equals(s);
     }
     @Override
     public String consume() throws TokenizerError {
         if(!hasNextToken()) throw new TokenizerError.Nextnull();
-        String result = next;
-        computeNext();
-        return result;
+        else{
+            String result = next;
+            computeNext();
+            return result;
+        }
     }
     @Override
     public boolean consume(String s) throws TokenizerError {

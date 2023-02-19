@@ -6,8 +6,6 @@ import Grammar.AST.Expr.*;
 import Grammar.Tokenizer.Tokenizer;
 import Type.Direction;
 
-import java.util.*;
-
 public class Parser_im implements Parser {/*
     Plan → Statement+
     Statement → Command | BlockStatement | IfStatement | WhileStatement
@@ -28,16 +26,15 @@ public class Parser_im implements Parser {/*
     InfoExpression → opponent | nearby Direction
 */
     Tokenizer tkz;
-    Map<String, Long> mem;
     public Parser_im(Tokenizer tkz) {
+        if(!tkz.hasNextToken()) throw new RuntimeException("No input");
         this.tkz = tkz;
-        mem = new HashMap<>();
     }
     @Override
     public Node.StateNode parse() {
-        Node.StateNode node = parsePlan();
+        Node.StateNode nodes = parsePlan();
         if(tkz.hasNextToken()) throw new RuntimeException("token is not null : " + tkz.peek());
-        return node;
+        return nodes;
     }
 
     private Node.StateNode parsePlan() {
@@ -47,7 +44,6 @@ public class Parser_im implements Parser {/*
     }
 
     private Node.StateNode lookNext() {
-        //I don't know to do this
         return null;
     }
 
@@ -65,17 +61,9 @@ public class Parser_im implements Parser {/*
     
     private Node.StateNode parseBlockStatement() {
         tkz.consume("{");
-        List<Node> blockNodes = findAllNodes();
+        Node.StateNode blockNodes = lookNext();
         tkz.consume("}");
-        return new BlockNode(blockNodes);
-    }
-
-    private List<Node> findAllNodes() {
-        List<Node> nodes = new ArrayList<>();
-        while(tkz.hasNextToken()){
-            nodes.add(parseStatement());
-        }
-        return nodes;
+        return blockNodes;
     }
 
     private Node.StateNode parseIfStatement() {
@@ -95,9 +83,7 @@ public class Parser_im implements Parser {/*
         tkz.consume("(");
         Node.ExprNode expr = parseExpression();
         tkz.consume(")");
-        tkz.consume("{");
         Node.StateNode body = parseStatement();
-        tkz.consume("}");
         return new WhileNode( expr, body );
     }
 
@@ -111,7 +97,9 @@ public class Parser_im implements Parser {/*
 
     private Node.StateNode parseAssignmentStatement() {
         String identifier = tkz.consume();
-        tkz.consume("=");
+        if(tkz.peek("="))
+            tkz.consume();
+        else throw new RuntimeException("Expected '='");
         Node.ExprNode expr = parseExpression();
         return new AssignmentNode( identifier, expr );
     }
