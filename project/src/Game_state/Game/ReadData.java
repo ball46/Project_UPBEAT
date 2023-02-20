@@ -13,17 +13,17 @@ import java.util.List;
 import java.util.Map;
 
 public class ReadData {
-    private static int row = 20;
-    private static int col = 15;
-    private static int init_plan_min = 5;//number of minutes to initial construction plan
-    private static int init_plan_sec = 0;
-    private static double init_budget = 10_000;//is my money
-    private static double init_center_dep = 100;//is my money in city center
-    private static int plan_rev_min = 30;//number of minutes to revisions construction plan
-    private static int plan_rev_sec = 0;
-    private static int rev_cost = 100;//cost to revise plan
-    private static double max_dep = 1_000_000;//maximum deposit for each region
-    private static double interest_pct = 5;
+    private static int row;
+    private static int col;
+    private static int init_plan_min;//number of minutes to initial construction plan
+    private static int init_plan_sec;
+    private static double init_budget;//is my money
+    private static double init_center_dep;//is my money in city center
+    private static int plan_rev_min;//number of minutes to revisions construction plan
+    private static int plan_rev_sec;
+    private static int rev_cost;//cost to revise plan
+    private static double max_dep;//maximum deposit for each region
+    private static double interest_pct;
     private static List<Region> territory;
     public static void getDataFile(){
         Gson gson = new Gson();

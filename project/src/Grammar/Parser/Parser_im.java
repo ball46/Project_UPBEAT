@@ -39,17 +39,17 @@ public class Parser_im implements Parser {/*
 
     private Node.StateNode parsePlan() {
         Node.StateNode current = parseStatement();
-        current.nextState = lookNext();
+        current.nextState = parseStatements();
         return current;
     }
 
-    private Node.StateNode lookNext() {
-        Node.StateNode node = null, next = null;
+    private Node.StateNode parseStatements() {
+        Node.StateNode node = null, subnode = null;
         while(tkz.hasNextToken() && !tkz.peek("}")) {
-            Node.StateNode read = parseStatement();
-            if(node == null) node = read;
-            if(next != null) next.nextState = read;
-            next = read;
+            Node.StateNode cur = parseStatement();
+            if(node == null) node = cur;
+            if(subnode != null) subnode.nextState = cur;
+            subnode = cur;
         }
         return node;
     }
@@ -68,7 +68,7 @@ public class Parser_im implements Parser {/*
     
     private Node.StateNode parseBlockStatement() {
         tkz.consume("{");
-        Node.StateNode blockNodes = lookNext();
+        Node.StateNode blockNodes = parseStatements();
         tkz.consume("}");
         return blockNodes;
     }
