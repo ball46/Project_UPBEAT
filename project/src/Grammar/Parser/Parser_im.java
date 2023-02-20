@@ -44,7 +44,14 @@ public class Parser_im implements Parser {/*
     }
 
     private Node.StateNode lookNext() {
-        return null;
+        Node.StateNode node = null, next = null;
+        while(tkz.hasNextToken() && !tkz.peek("}")) {
+            Node.StateNode read = parseStatement();
+            if(node == null) node = read;
+            if(next != null) next.nextState = read;
+            next = read;
+        }
+        return node;
     }
 
     private Node.StateNode parseStatement() {

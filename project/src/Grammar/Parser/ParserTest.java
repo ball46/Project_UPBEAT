@@ -16,8 +16,14 @@ class ParserTest {
     }
     @Test
     public void testStatements(){
-        parser = new Parser_im(new Tokenizer_im("x = 1"));
+        parser = new Parser_im(new Tokenizer_im("x = 1 y = 2 z = 3 a = 4 b = 5"));
         stateNode = parser.parse();
+        assertInstanceOf(AssignmentNode.class, stateNode);
+        stateNode = stateNode.nextState;
+        assertInstanceOf(AssignmentNode.class, stateNode);
+        stateNode = stateNode.nextState;
+        assertInstanceOf(AssignmentNode.class, stateNode);
+        stateNode = stateNode.nextState;
         assertInstanceOf(AssignmentNode.class, stateNode);
         stateNode = stateNode.nextState;
         assertInstanceOf(AssignmentNode.class, stateNode);
