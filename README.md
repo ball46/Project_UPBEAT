@@ -1,9 +1,15 @@
 # Project_UPBEAT
 
-link for project spec and time line - https://cmu.to/projectspec
+This brach is only for Front-End development
 
-link for look overview project - https://cmu.to/overviewproject
+For install packages & dependencies use:
 
-link for design overview - https://cmu.to/xh2hR
+```bash
+npm install
+```
 
-test push
+For run the local dev use:
+
+```bash
+npm run dev
+```
