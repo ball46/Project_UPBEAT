@@ -3,7 +3,7 @@ import "./Hexstyle.css";
 
 function HexagonRow(props) {
   const tags = [];
-  let amount = 13;
+  let amount = 25;
   for (let i = 0; i < amount; i++) {
     tags.push(
       <div class="hexagon">
