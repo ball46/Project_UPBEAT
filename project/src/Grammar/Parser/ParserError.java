@@ -1,4 +1,4 @@
 package Grammar.Parser;
 
-public class ParserError  extends RuntimeException{
+public class ParserError extends RuntimeException{
 }

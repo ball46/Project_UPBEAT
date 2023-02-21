@@ -4,11 +4,11 @@ import Game_state.Game.Game;
 import Grammar.AST.Node;
 
 public class IfNode extends Node.StateNode {
-    private final ExprNode condition;
-    private final StateNode trueBranch;
-    private final StateNode falseBranch;
+    private final Node.ExprNode condition;
+    private final Node.StateNode trueBranch;
+    private final Node.StateNode falseBranch;
 
-    public IfNode(ExprNode condition, StateNode trueBranch, StateNode falseBranch) {
+    public IfNode(Node.ExprNode condition, Node.StateNode trueBranch, Node.StateNode falseBranch) {
         this.condition = condition;
         this.trueBranch = trueBranch;
         this.falseBranch = falseBranch;

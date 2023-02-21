@@ -4,10 +4,10 @@ import Game_state.Game.Game;
 import Grammar.AST.Node;
 
 public class BinaryOperationNode extends Node.ExprNode {
-    private final ExprNode left;
-    private final ExprNode right;
+    private final Node.ExprNode left;
+    private final Node.ExprNode right;
     private final String operator;
-    public BinaryOperationNode(ExprNode left, String operator, ExprNode right) {
+    public BinaryOperationNode(Node.ExprNode left, String operator, Node.ExprNode right) {
         this.left = left;
         this.right = right;
         this.operator = operator;
