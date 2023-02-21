@@ -4,14 +4,14 @@ public class TokenizerError extends RuntimeException {
     public TokenizerError(String message) {
         super(message);
     }
-    public static class Nextnull extends TokenizerError {
-        public Nextnull() {
-            super("no more tokens");
+    public static class NextNull extends TokenizerError {
+        public NextNull() {
+            super("No more tokens");
         }
     }
-    public static class Unknownword extends TokenizerError {
-        public Unknownword(char c) {
-            super("invalid character" + c);
+    public static class UnknownWord extends TokenizerError {
+        public UnknownWord(char c) {
+            super("Invalid character" + c);
         }
     }
 }

@@ -16,7 +16,7 @@ public class Tokenizer_im implements Tokenizer {
     }
     @Override
     public String peek() throws TokenizerError {
-        if(!hasNextToken()) throw new TokenizerError.Nextnull();
+        if(!hasNextToken()) throw new TokenizerError.NextNull();
         return next;
     }
     @Override
@@ -26,7 +26,7 @@ public class Tokenizer_im implements Tokenizer {
     }
     @Override
     public String consume() throws TokenizerError {
-        if(!hasNextToken()) throw new TokenizerError.Nextnull();
+        if(!hasNextToken()) throw new TokenizerError.NextNull();
         else{
             String result = next;
             computeNext();
@@ -35,7 +35,7 @@ public class Tokenizer_im implements Tokenizer {
     }
     @Override
     public boolean consume(String s) throws TokenizerError {
-        if(!hasNextToken()) throw new TokenizerError.Nextnull();
+        if(!hasNextToken()) throw new TokenizerError.NextNull();
         else{
             if(next.equals(s)) {
                 computeNext();
@@ -76,7 +76,7 @@ public class Tokenizer_im implements Tokenizer {
             s.append(src.charAt(pos));
             pos++;
         }else{
-            throw new TokenizerError.Unknownword(c);
+            throw new TokenizerError.UnknownWord(c);
         }
         next = s.toString();
     }

@@ -30,4 +30,16 @@ class ParserTest {
         stateNode = stateNode.nextState;
         assertNull(stateNode);
     }
+
+    @Test
+    public void testSpecialVariable() {
+        parser = new Parser_im((new Tokenizer_im("nearby = 10")));
+        assertThrows(ParserError.CommandHasSpecialVariable.class,() -> parser.parse());
+        parser = new Parser_im((new Tokenizer_im("opponent = 10")));
+        assertThrows(ParserError.CommandHasSpecialVariable.class,() -> parser.parse());
+        parser = new Parser_im((new Tokenizer_im("int = 10")));
+        assertThrows(ParserError.CommandHasSpecialVariable.class,() -> parser.parse());
+        parser = new Parser_im((new Tokenizer_im("rows = 10")));
+        assertThrows(ParserError.CommandHasSpecialVariable.class,() -> parser.parse());
+    }
 }

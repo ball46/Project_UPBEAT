@@ -3,8 +3,6 @@ package Grammar.Tokenizer;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,9 +21,9 @@ class Tokenizer_imTest {
     @Test
     public void testpeek() {
         tokenizer = new Tokenizer_im(null);
-        assertThrows(TokenizerError.Nextnull.class, () -> tokenizer.peek());
+        assertThrows(TokenizerError.NextNull.class, () -> tokenizer.peek());
         tokenizer = new Tokenizer_im("");
-        assertThrows(TokenizerError.Nextnull.class, () -> tokenizer.peek());
+        assertThrows(TokenizerError.NextNull.class, () -> tokenizer.peek());
         tokenizer = new Tokenizer_im("abc");
         assertEquals("abc", tokenizer.peek());
         tokenizer = new Tokenizer_im("a b");
@@ -35,13 +33,13 @@ class Tokenizer_imTest {
     @Test
     public void testpeekhasString() {
         tokenizer = new Tokenizer_im(null);
-        assertThrows(TokenizerError.Nextnull.class, () -> tokenizer.peek(""));
-        assertThrows(TokenizerError.Nextnull.class, () -> tokenizer.peek("abc"));
-        assertThrows(TokenizerError.Nextnull.class, () -> tokenizer.peek("a b"));
+        assertThrows(TokenizerError.NextNull.class, () -> tokenizer.peek(""));
+        assertThrows(TokenizerError.NextNull.class, () -> tokenizer.peek("abc"));
+        assertThrows(TokenizerError.NextNull.class, () -> tokenizer.peek("a b"));
         tokenizer = new Tokenizer_im("");
-        assertThrows(TokenizerError.Nextnull.class, () -> tokenizer.peek(""));
-        assertThrows(TokenizerError.Nextnull.class, () -> tokenizer.peek("abc"));
-        assertThrows(TokenizerError.Nextnull.class, () -> tokenizer.peek("a b"));
+        assertThrows(TokenizerError.NextNull.class, () -> tokenizer.peek(""));
+        assertThrows(TokenizerError.NextNull.class, () -> tokenizer.peek("abc"));
+        assertThrows(TokenizerError.NextNull.class, () -> tokenizer.peek("a b"));
         tokenizer = new Tokenizer_im("abc");
         assertFalse(tokenizer.peek(""));
         assertTrue(tokenizer.peek("abc"));
@@ -55,14 +53,14 @@ class Tokenizer_imTest {
     @Test
     public void testconsume() {
         tokenizer = new Tokenizer_im(null);
-        assertThrows(TokenizerError.Nextnull.class, () -> tokenizer.consume());
-        assertThrows(TokenizerError.Nextnull.class, () -> tokenizer.consume(""));
-        assertThrows(TokenizerError.Nextnull.class, () -> tokenizer.consume("abc"));
-        assertThrows(TokenizerError.Nextnull.class, () -> tokenizer.consume("a b"));
+        assertThrows(TokenizerError.NextNull.class, () -> tokenizer.consume());
+        assertThrows(TokenizerError.NextNull.class, () -> tokenizer.consume(""));
+        assertThrows(TokenizerError.NextNull.class, () -> tokenizer.consume("abc"));
+        assertThrows(TokenizerError.NextNull.class, () -> tokenizer.consume("a b"));
         tokenizer = new Tokenizer_im("");
-        assertThrows(TokenizerError.Nextnull.class, () -> tokenizer.consume(""));
-        assertThrows(TokenizerError.Nextnull.class, () -> tokenizer.consume("abc"));
-        assertThrows(TokenizerError.Nextnull.class, () -> tokenizer.consume("a b"));
+        assertThrows(TokenizerError.NextNull.class, () -> tokenizer.consume(""));
+        assertThrows(TokenizerError.NextNull.class, () -> tokenizer.consume("abc"));
+        assertThrows(TokenizerError.NextNull.class, () -> tokenizer.consume("a b"));
         tokenizer = new Tokenizer_im("abc");
         assertEquals("abc", tokenizer.consume());
         tokenizer = new Tokenizer_im("a b");
@@ -72,17 +70,17 @@ class Tokenizer_imTest {
     @Test
     public void testconsumehasString() {
         tokenizer = new Tokenizer_im(null);
-        assertThrows(TokenizerError.Nextnull.class, () -> tokenizer.consume(""));
-        assertThrows(TokenizerError.Nextnull.class, () -> tokenizer.consume("abc"));
-        assertThrows(TokenizerError.Nextnull.class, () -> tokenizer.consume("a b"));
+        assertThrows(TokenizerError.NextNull.class, () -> tokenizer.consume(""));
+        assertThrows(TokenizerError.NextNull.class, () -> tokenizer.consume("abc"));
+        assertThrows(TokenizerError.NextNull.class, () -> tokenizer.consume("a b"));
         tokenizer = new Tokenizer_im("");
-        assertThrows(TokenizerError.Nextnull.class, () -> tokenizer.consume(""));
-        assertThrows(TokenizerError.Nextnull.class, () -> tokenizer.consume("abc"));
-        assertThrows(TokenizerError.Nextnull.class, () -> tokenizer.consume("a b"));
+        assertThrows(TokenizerError.NextNull.class, () -> tokenizer.consume(""));
+        assertThrows(TokenizerError.NextNull.class, () -> tokenizer.consume("abc"));
+        assertThrows(TokenizerError.NextNull.class, () -> tokenizer.consume("a b"));
         tokenizer = new Tokenizer_im("abc");
         assertFalse(tokenizer.consume(""));
         assertTrue(tokenizer.consume("abc"));
-        assertThrows(TokenizerError.Nextnull.class, () -> tokenizer.consume("a b"));
+        assertThrows(TokenizerError.NextNull.class, () -> tokenizer.consume("a b"));
         tokenizer = new Tokenizer_im("a b");
         assertFalse(tokenizer.consume(""));
         assertFalse(tokenizer.consume("abc"));

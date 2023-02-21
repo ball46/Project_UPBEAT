@@ -5,6 +5,8 @@ import Grammar.AST.State.*;
 import Grammar.AST.Expr.*;
 import Grammar.Tokenizer.Tokenizer;
 import Type.Direction;
+import java.util.Arrays;
+import java.util.List;
 
 public class Parser_im implements Parser {/*
     Plan → Statement+
@@ -26,14 +28,19 @@ public class Parser_im implements Parser {/*
     InfoExpression → opponent | nearby Direction
 */
     Tokenizer tkz;
+    List<String> Command = Arrays.asList("done", "relocate", "move", "invest", "collect", "shoot");
+    List<String> SpecialVariables = Arrays.asList("if", "while", "done", "relocate", "move", "invest", "shoot"
+            , "up", "down", "upleft", "upright", "downleft", "downright", "if", "while", "then", "else", "opponent", "nearby",
+            "rows", "cols", "currow", "curcol", "budget", "deposit", "int", "maxdeposit", "random");
+
     public Parser_im(Tokenizer tkz) {
-        if(!tkz.hasNextToken()) throw new RuntimeException("No input");
+        if(!tkz.hasNextToken()) throw new ParserError.CommandIsNoInput();
         this.tkz = tkz;
     }
     @Override
     public Node.StateNode parse() {
         Node.StateNode nodes = parsePlan();
-        if(tkz.hasNextToken()) throw new RuntimeException("token is not null : " + tkz.peek());
+        if(tkz.hasNextToken()) throw new ParserError.CommandHasLeftoverToken(tkz.peek());
         return nodes;
     }
 
@@ -95,8 +102,7 @@ public class Parser_im implements Parser {/*
     }
 
     private Node.StateNode parseCommand() {
-        if(tkz.peek("done") || tkz.peek("relocate") || tkz.peek("move")
-                || tkz.peek("invest") || tkz.peek("collect") || tkz.peek("shoot")){
+        if(Command.contains(tkz.peek())){
             return parseActionCommand();
         }
         return parseAssignmentStatement();
@@ -104,11 +110,15 @@ public class Parser_im implements Parser {/*
 
     private Node.StateNode parseAssignmentStatement() {
         String identifier = tkz.consume();
-        if(tkz.peek("="))
-            tkz.consume();
-        else throw new RuntimeException("Expected '='");
-        Node.ExprNode expr = parseExpression();
-        return new AssignmentNode( identifier, expr );
+        if(SpecialVariables.contains(identifier)){
+            throw new ParserError.CommandHasSpecialVariable(identifier);
+        }else {
+            if (tkz.peek("="))
+                tkz.consume();
+            else throw new ParserError.CommandNotFound("'='");
+            Node.ExprNode expr = parseExpression();
+            return new AssignmentNode(identifier, expr);
+        }
     }
 
     private Node.StateNode parseActionCommand() {
@@ -120,7 +130,7 @@ public class Parser_im implements Parser {/*
             case "invest" -> parseInvestCommand();
             case "collect" -> parseCollectCommand();
             case "shoot" -> parseShootCommand();
-            default -> throw new RuntimeException("unknown command: " + tkz.peek());
+            default -> throw new ParserError.CommandIsUnknown(tkz.peek());
         };
     }
 
@@ -139,7 +149,7 @@ public class Parser_im implements Parser {/*
             case "upright" -> Direction.UpRight;
             case "downleft" -> Direction.DownLeft;
             case "downright" -> Direction.DownRight;
-            default -> throw new RuntimeException("unknown direction: " + tkz.peek());
+            default -> throw new ParserError.DirectionCommandIsUnknown(tkz.peek());
         };
     }
 
@@ -213,7 +223,7 @@ public class Parser_im implements Parser {/*
             tkz.consume();
             Direction direction = parseDirection();
             return new NearbyNode(direction);
-        }else throw new RuntimeException("unknown info expression: " + tkz.peek());
+        }else throw new ParserError.InfoCommandIsUnknown(tkz.peek());
     }
 
 }
