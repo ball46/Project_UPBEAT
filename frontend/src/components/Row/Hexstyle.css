@@ -5,35 +5,46 @@
   background-color: hsl(0, 0%, 76%);
   text-align: center;
 }
+.hexagon-a {
+  position: relative;
+  display: inline-block;
+  margin: 0px 11px;
+  background-color: hsl(0, 99%, 48%);
+  text-align: center;
+}
+
 .hexagon,
+.hexagon-a,
 .hexagon::before,
-.hexagon::after {
+.hexagon::after,
+.hexagon-a::before,
+.hexagon-a::after {
   width: 30px;
   height: 55px;
   border-radius: 20%/5%;
 }
-.hexagon::before {
+.hexagon::before,.hexagon-a::before  {
   background-color: inherit;
   content: "";
   position: absolute;
   left: 0;
   transform: rotate(-60deg);
 }
-.hexagon::after {
+.hexagon::after,.hexagon-a::after {
   background-color: inherit;
   content: "";
   position: absolute;
   left: 0;
   transform: rotate(60deg);
 }
-.hexagon:nth-child(odd) {
+.hexagon:nth-child(odd),.hexagon-a:nth-child(odd) {
   top: 30px;
 }
-.hexagon:hover {
+/* .hexagon:hover {
   background-color: rgb(255, 255, 255);
   cursor: pointer;
   z-index: 105;
-}
+} */
 .content {
   position: absolute;
   top: 50%;

@@ -6,8 +6,10 @@ function HexagonRow(props) {
   const tags = [];
   const amount = config["width"];
   for (let i = 0; i < amount; i++) {
+    let variant = i % 2 !== 0 ? "hexagon" : "hexagon-a";
+
     tags.push(
-      <div class="hexagon">
+      <div class={variant}>
         <div class="content">
           {props.x},{i + 1}
         </div>
