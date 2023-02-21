@@ -1,12 +1,13 @@
 import React from "react";
 import HexagonRow from "../Row/HexagonRow";
 import "./Gridstyles.css";
+import config from "/src/config";
 
 export default function HexGrid() {
   const tags = [];
-  let amount = 30;
+  const amount = config["height"];
   for (let i = 0; i < amount; i++) {
-    tags.push(<HexagonRow x={i+1} />);
+    tags.push(<HexagonRow x={i + 1} />);
   }
   return (
     <div class="container">
