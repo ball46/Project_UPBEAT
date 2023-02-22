@@ -1,11 +1,18 @@
 import "./App.css";
-import HexGrid from "./components/Grid/HexGrid";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Landing from "./components/landing/Landing";
+import HexGrid from "./components/map/HexGrid";
+import InputName from "./components/inputName/InputName";
 
 function App() {
   return (
-    <div class="container">
-      <HexGrid />
-    </div>
+    // <Router>
+    //   <Routes>
+    //     <Route path="/" element={<Landing />}></Route>
+    //     <Route path="/map" element={<HexGrid />}></Route>
+    //   </Routes>
+    // </Router>
+    <InputName/>
   );
 }
 

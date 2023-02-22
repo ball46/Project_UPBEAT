@@ -23,28 +23,32 @@
   height: 55px;
   border-radius: 20%/5%;
 }
-.hexagon::before,.hexagon-a::before  {
+.hexagon::before,
+.hexagon-a::before {
   background-color: inherit;
   content: "";
   position: absolute;
   left: 0;
   transform: rotate(-60deg);
 }
-.hexagon::after,.hexagon-a::after {
+.hexagon::after,
+.hexagon-a::after {
   background-color: inherit;
   content: "";
   position: absolute;
   left: 0;
   transform: rotate(60deg);
 }
-.hexagon:nth-child(odd),.hexagon-a:nth-child(odd) {
+.hexagon:nth-child(odd),
+.hexagon-a:nth-child(odd) {
   top: 30px;
 }
-/* .hexagon:hover {
+.hexagon:hover,
+.hexagon-a:hover {
   background-color: rgb(255, 255, 255);
   cursor: pointer;
   z-index: 105;
-} */
+}
 .content {
   position: absolute;
   top: 50%;
