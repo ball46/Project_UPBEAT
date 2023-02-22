@@ -67,7 +67,7 @@ public class Tokenizer_im implements Tokenizer {
                 s.append(src.charAt(pos));
                 pos++;
             }
-        } else if (Character.isAlphabetic(c)) {
+        } else if (Character.isAlphabetic(c) || c == '_') {
             while (pos < src.length() && Character.isAlphabetic(src.charAt(pos))) {
                 s.append(src.charAt(pos));
                 pos++;

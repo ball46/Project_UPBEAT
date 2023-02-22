@@ -1,6 +1,7 @@
 package Grammar.AST.Expr;
 
 import Game_state.Game.Game;
+import Grammar.AST.ASTError;
 import Grammar.AST.Node;
 
 public class IdentifierNode extends Node.ExprNode {
@@ -13,7 +14,7 @@ public class IdentifierNode extends Node.ExprNode {
         if(game.getIdentifiers().containsKey(idf)){
             return game.getIdentifiers().get(idf);
         }else{
-            throw new RuntimeException("Identifier" + idf + " not found");
+            throw new ASTError.UnknownIdentifier(idf);
         }
     }
 

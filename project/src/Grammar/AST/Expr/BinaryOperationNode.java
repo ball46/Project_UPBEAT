@@ -1,6 +1,7 @@
 package Grammar.AST.Expr;
 
 import Game_state.Game.Game;
+import Grammar.AST.ASTError;
 import Grammar.AST.Node;
 
 public class BinaryOperationNode extends Node.ExprNode {
@@ -24,7 +25,7 @@ public class BinaryOperationNode extends Node.ExprNode {
             case "/" -> leftVal / rightVal;
             case "%" -> leftVal % rightVal;
             case "^" -> (long) Math.pow(leftVal, rightVal);
-            default -> throw new RuntimeException("Unknown operator: " + operator);
+            default -> throw new ASTError.UnknownSymbol(operator);
         };
     }
 

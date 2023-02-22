@@ -11,7 +11,7 @@ public class TokenizerError extends RuntimeException {
     }
     public static class UnknownWord extends TokenizerError {
         public UnknownWord(char c) {
-            super("Invalid character" + c);
+            super("Invalid character : " + c);
         }
     }
 }

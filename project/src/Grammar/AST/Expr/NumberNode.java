@@ -15,6 +15,10 @@ public class NumberNode extends Node.ExprNode {
         return value;
     }
 
+    public long eval() {
+        return value;
+    }
+
     @Override
     public String toString(){
         return String.valueOf(value);

@@ -9,6 +9,9 @@ public class WhileNode extends Node.StateNode {
     public WhileNode(ExprNode condition, StateNode body) {
         this.condition = condition;
         this.body = body;
+        if(body == null){
+            body = this;
+        }
     }
     @Override
     public StateNode evaluate(Game game) {
