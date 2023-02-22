@@ -6,7 +6,7 @@ function InputName() {
   const [name2, setName2] = useState("");
 
   return (
-    <div className="container">
+    <div className="input-container">
       {/* Player1 */}
       <div class="group">
         <input

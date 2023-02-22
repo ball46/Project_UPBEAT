@@ -14,7 +14,7 @@ export default function Landing() {
         <button
           class="button-27"
           role="button"
-          onClick={() => navigate("/map")}
+          onClick={() => navigate("/input")}
         >
           START
         </button>
