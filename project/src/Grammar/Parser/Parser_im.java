@@ -200,15 +200,15 @@ public class Parser_im implements Parser {/*
     private Node.ExprNode parsePower() {
         if(Character.isDigit(tkz.peek().charAt(0))){
             return new NumberNode( Long.parseLong(tkz.consume()) );
-        }else if(Character.isAlphabetic(tkz.peek().charAt(0))){
-            return new IdentifierNode( tkz.consume() );
+        }else if(tkz.peek("opponent") || tkz.peek("nearby")){
+            return parseInfoExpression();
         }else if(tkz.peek("(")){
             tkz.consume("(");
             Node.ExprNode expr = parseExpression();
             tkz.consume(")");
             return expr;
-        }else if(tkz.peek("opponent") || tkz.peek("nearby")){
-            return parseInfoExpression();
+        }else if(Character.isAlphabetic(tkz.peek().charAt(0)) ){
+            return new IdentifierNode( tkz.consume() );
         }
         return null;
     }
