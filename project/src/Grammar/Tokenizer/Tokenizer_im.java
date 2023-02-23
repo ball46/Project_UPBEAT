@@ -50,7 +50,7 @@ public class Tokenizer_im implements Tokenizer {
         while(pos <src.length() && src.charAt(pos) != '\n') pos++;
     }
     private void computeNext() throws TokenizerError{
-        String check = "+-*/(){}^=";
+        String check = "+-*/(){}^=%";
         StringBuilder s = new StringBuilder();
         if(src == null) return;
         while (pos < src.length() && DoNotCareChar(src.charAt(pos))) {

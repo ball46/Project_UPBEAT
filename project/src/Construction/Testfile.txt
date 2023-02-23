@@ -51,6 +51,4 @@ while (deposit) { # still our region
     else move up
     m = m + 1
   }
-}  # end while
-# city crew on a region belonging to nobody, so claim it
-if (budget - 1) then invest 1 else {}
+}

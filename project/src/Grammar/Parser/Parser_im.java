@@ -113,8 +113,7 @@ public class Parser_im implements Parser {/*
         if(SpecialVariables.contains(identifier)){
             throw new ParserError.CommandHasSpecialVariable(identifier);
         }else {
-            if (tkz.peek("="))
-                tkz.consume();
+            if (tkz.peek("=")) tkz.consume();
             else throw new ParserError.CommandNotFound("'='");
             Node.ExprNode expr = parseExpression();
             return new AssignmentNode(identifier, expr);
@@ -135,7 +134,6 @@ public class Parser_im implements Parser {/*
     }
 
     private Node.StateNode parseMoveCommand() {
-        tkz.consume();
         Direction direction = parseDirection();
         return new MoveNode( direction );
     }
