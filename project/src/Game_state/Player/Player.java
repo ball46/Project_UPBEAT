@@ -7,7 +7,7 @@ import java.util.Map;
 public interface Player {
     boolean life();
     String getName();
-    double getBudget();
+    long getBudget();
     void updateBudget(double money);
     void moveCityCrew(Direction direction);
     int getCityCrewLocation();

@@ -21,5 +21,17 @@ public class Main {
 //        String str = Files.readString(fileName);
 //        System.out.println(str);
 //        Parser test = new Parser_im(new Tokenizer_im(str));
+        Gson gson = new Gson();
+        Path path = Path.of("D:\\UPBEAT\\project\\src\\Data\\ConfigFile.json");
+        try(BufferedReader reader = Files.newBufferedReader(path)) {
+            Map data = gson.fromJson(reader, Map.class);
+            for (Object key : data.keySet()) {
+                String swt = (String) key;
+                long value = (long) Double.parseDouble(data.get(key).toString());
+                System.out.println(swt + " : " + value);
+            }
+        }catch (Exception e){
+            throw new IOException(e);
+        }
     }
 }

@@ -12,28 +12,45 @@ public class Game_im implements Game{
     private final Player player1, player2;
     private Player current_player;
     private final List<Region> territory;
-    private final Map<String, Long> identifiers;
     public Game_im(String nameP1, String nameP2) {
         this.player1 = ReadData.createPlayer(nameP1);
         this.player2 = ReadData.createPlayer(nameP2);
         this.territory = ReadData.createMap();
-        this.identifiers = new HashMap<>();
         this.current_player = this.player1;
     }
 
     @Override
     public Map<String, Long> getIdentifiers() {
-        return identifiers;
+        return current_player.getIdentifiers();
     }
 
     @Override
     public void attack(Direction direction, long money) {
-
+        //TODO implement
     }
 
     @Override
     public void collect(long money) {
+        if(money <= 0)
+            throw new GameError.MoneyIsLessThanZero(money);
+        if(current_player.getBudget() < 1)
+            return;
+        Region region = CurrentCityCrew();
+        if(!region.getOwner().getName().equals(current_player.getName()))
+            return;
+        if(money > region.getDeposit())
+            return;
+        region.updateDeposit(-money);
+        current_player.updateBudget(money);
+        if(region.getDeposit() == 0)
+            region.updateOwner(null);
+    }
+    private Region CurrentCityCenter() {
+        return this.territory.get(current_player.getCityCenterLocation());
+    }
 
+    private Region CurrentCityCrew() {
+        return this.territory.get(current_player.getCityCrewLocation());
     }
 
     @Override
@@ -59,6 +76,21 @@ public class Game_im implements Game{
     @Override
     public long opponent() {
         return 0;
+    }
+
+    @Override
+    public List<Region> getTerritory() {
+        return this.territory;
+    }
+
+    @Override
+    public Region getRegion(int location) {
+        return this.territory.get(location);
+    }
+
+    @Override
+    public long getBudget() {
+        return current_player.getBudget();
     }
 
     @Override

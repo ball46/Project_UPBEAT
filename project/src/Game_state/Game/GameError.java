@@ -9,4 +9,10 @@ public class GameError extends RuntimeException {
             super(message);
         }
     }
+
+    public static class MoneyIsLessThanZero extends GameError {
+        public MoneyIsLessThanZero(long money) {
+            super("Money is less than zero : " + money);
+        }
+    }
 }

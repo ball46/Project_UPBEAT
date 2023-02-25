@@ -5,7 +5,7 @@ import Game_state.Player.Player;
 public interface Region {
     Player getOwner();
     void updateOwner(Player owner);
-    double getDeposit();
+    long getDeposit();
     void updateDeposit(double money);
     int getLocation();
     int Opponent();

@@ -5,7 +5,7 @@ import Game_state.Player.Player;
 public class Region_im implements Region {
     private final int location;
     private Player owner;
-    private double deposit;
+    private long deposit;
     public Region_im(int location){
         this.location = location;
         this.owner = null;
@@ -22,7 +22,7 @@ public class Region_im implements Region {
     }
 
     @Override
-    public double getDeposit() {
+    public long getDeposit() {
         return this.deposit;
     }
 

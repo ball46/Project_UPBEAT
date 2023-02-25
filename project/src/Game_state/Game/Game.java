@@ -16,5 +16,8 @@ public interface Game {
     void relocate();
     long nearby(Direction direction);
     long opponent();
+    List<Region> getTerritory();
+    Region getRegion(int location);
+    long getBudget();
     void endTurn();
 }

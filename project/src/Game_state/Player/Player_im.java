@@ -8,11 +8,11 @@ import java.util.Map;
 
 public class Player_im implements Player{
     private final String name;
-    private double budget;
+    private long budget;
     private boolean life;
     private Region CityCenter, CityCrew;//location is row * col
     private final Map<String, Long> identifier;
-    public Player_im(String name, double budget, Region CityCenter) {
+    public Player_im(String name, long budget, Region CityCenter) {
         this.name = name;
         this.budget = budget;
         this.life = true;
@@ -27,7 +27,7 @@ public class Player_im implements Player{
     }
 
     @Override
-    public double getBudget() {
+    public long getBudget() {
         return this.budget;
     }
 
