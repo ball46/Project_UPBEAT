@@ -2,6 +2,7 @@ package Grammar.Parser;
 
 import Grammar.AST.Node;
 import Grammar.AST.State.AssignmentNode;
+import Grammar.AST.State.WhileNode;
 import Grammar.Tokenizer.Tokenizer_im;
 import org.junit.jupiter.api.Test;
 
@@ -64,5 +65,9 @@ class ParserTest {
         parser = new Parser_im((new Tokenizer_im(str)));
         stateNode = parser.parse();
         assertInstanceOf(AssignmentNode.class, stateNode);
+        stateNode = stateNode.nextState;
+        assertInstanceOf(AssignmentNode.class, stateNode);
+        stateNode = stateNode.nextState;
+        assertInstanceOf(WhileNode.class, stateNode);
     }
 }

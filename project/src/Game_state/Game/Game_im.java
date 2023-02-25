@@ -9,15 +9,16 @@ import java.util.List;
 import java.util.Map;
 
 public class Game_im implements Game{
-    private final Player player1;
-    private final Player player2;
+    private final Player player1, player2;
+    private Player current_player;
     private final List<Region> territory;
     private final Map<String, Long> identifiers;
-    public Game_im() {
-        this.player1 = ReadData.createPlayer("ball");
-        this.player2 = ReadData.createPlayer("boss");
+    public Game_im(String nameP1, String nameP2) {
+        this.player1 = ReadData.createPlayer(nameP1);
+        this.player2 = ReadData.createPlayer(nameP2);
         this.territory = ReadData.createMap();
-        identifiers = new HashMap<>();
+        this.identifiers = new HashMap<>();
+        this.current_player = this.player1;
     }
 
     @Override
@@ -58,5 +59,14 @@ public class Game_im implements Game{
     @Override
     public long opponent() {
         return 0;
+    }
+
+    @Override
+    public void endTurn() {
+        if(current_player == this.player1){
+            current_player = this.player2;
+        }else{
+            current_player = this.player1;
+        }
     }
 }

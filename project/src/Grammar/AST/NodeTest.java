@@ -13,7 +13,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 class NodeTest {
-    Game game = new Game_im();
+    Game game = new Game_im("ball", "boss");
     Node.StateNode node, trueNode = new DoneNode(), falseNode = new DoneNode();
     Node.ExprNode expr;
     Map<String, Long> map = game.getIdentifiers();

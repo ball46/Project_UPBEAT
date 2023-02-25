@@ -16,4 +16,5 @@ public interface Game {
     void relocate();
     long nearby(Direction direction);
     long opponent();
+    void endTurn();
 }

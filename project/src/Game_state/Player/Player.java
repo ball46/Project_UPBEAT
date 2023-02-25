@@ -1,15 +1,17 @@
 package Game_state.Player;
 
+import Type.Direction;
+
 import java.util.Map;
 
 public interface Player {
+    boolean life();
     String getName();
     double getBudget();
     void updateBudget(double money);
-    void moveCityCrew(String direction);
-    int[] getCityCrewLocation();
-    int[] getCityCenterLocation();
-    boolean life();
+    void moveCityCrew(Direction direction);
+    int getCityCrewLocation();
+    int getCityCenterLocation();
     long attack(String direction);
-    Map<String,Long> getIdentifiers();
+    Map<String, Long> getIdentifiers();
 }

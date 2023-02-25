@@ -1,11 +1,13 @@
 package Game_state.Region;
 
+import Game_state.Player.Player;
+
 public interface Region {
-    String getOwner();
-    void updateOwner(String owner);
-    double getBudget();
-    void updateBudget(double money);
-    int[] getLocation();
+    Player getOwner();
+    void updateOwner(Player owner);
+    double getDeposit();
+    void updateDeposit(double money);
+    int getLocation();
     int Opponent();
     int nearby();
 }

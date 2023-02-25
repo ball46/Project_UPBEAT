@@ -1,36 +1,38 @@
 package Game_state.Region;
 
+import Game_state.Player.Player;
+
 public class Region_im implements Region {
-    private final int[] location;
-    private String owner;
-    private double budget;
-    public Region_im(int row, int col){
-        this.location = new int[]{row,col};
-        this.owner = "null";
-        this.budget = 0;
+    private final int location;
+    private Player owner;
+    private double deposit;
+    public Region_im(int location){
+        this.location = location;
+        this.owner = null;
+        this.deposit = 0;
     }
     @Override
-    public String getOwner() {
-        return owner;
+    public Player getOwner() {
+        return this.owner;
     }
 
     @Override
-    public void updateOwner(String owner) {
+    public void updateOwner(Player owner) {
         this.owner = owner;
     }
 
     @Override
-    public double getBudget() {
-        return budget;
+    public double getDeposit() {
+        return this.deposit;
     }
 
     @Override
-    public void updateBudget(double money) {
-        this.budget += money;
+    public void updateDeposit(double money) {
+        this.deposit += money;
     }
 
     @Override
-    public int[] getLocation() {
+    public int getLocation() {
         return this.location;
     }
 

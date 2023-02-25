@@ -1,5 +1,8 @@
 package Game_state.Player;
 
+import Game_state.Region.Region;
+import Type.Direction;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,13 +10,13 @@ public class Player_im implements Player{
     private final String name;
     private double budget;
     private boolean life;
-    private final int[] CityCenter, CityCrew;//has 2 member [0] is rows, [1] is cols
+    private Region CityCenter, CityCrew;//location is row * col
     private final Map<String, Long> identifier;
-    public Player_im(String name,double budget, double centerDep) {
+    public Player_im(String name, double budget, Region CityCenter) {
         this.name = name;
         this.budget = budget;
         this.life = true;
-        this.CityCenter = new int[2];//TODO change it in future
+        this.CityCenter = CityCenter;
         this.CityCrew = this.CityCenter;
         this.identifier = new HashMap<>();
     }
@@ -34,31 +37,31 @@ public class Player_im implements Player{
     }
 
     @Override
-    public void moveCityCrew(String direction) {
-        switch (direction) {
-            case "up" -> this.CityCrew[0]--;
-            case "down" -> this.CityCrew[0]++;
-            case "upleft" -> {
-                this.CityCrew[0]--;
-                this.CityCrew[1]--;
-            }
-            case "upright" -> {
-                this.CityCrew[0]--;
-                this.CityCrew[1]++;
-            }
-            case "downleft" -> this.CityCrew[1]--;
-            case "downright" -> this.CityCrew[1]++;
-        }
+    public void moveCityCrew(Direction direction) {
+//        switch (direction) {
+//            case "up" -> this.CityCrew[0]--;
+//            case "down" -> this.CityCrew[0]++;
+//            case "upleft" -> {
+//                this.CityCrew[0]--;
+//                this.CityCrew[1]--;
+//            }
+//            case "upright" -> {
+//                this.CityCrew[0]--;
+//                this.CityCrew[1]++;
+//            }
+//            case "downleft" -> this.CityCrew[1]--;
+//            case "downright" -> this.CityCrew[1]++;
+//        }
     }
 
     @Override
-    public int[] getCityCrewLocation() {
-        return this.CityCrew;
+    public int getCityCrewLocation() {
+        return this.CityCrew.getLocation();
     }
 
     @Override
-    public int[] getCityCenterLocation() {
-        return this.CityCenter;
+    public int getCityCenterLocation() {
+        return this.CityCenter.getLocation();
     }
 
     @Override
@@ -73,6 +76,6 @@ public class Player_im implements Player{
 
     @Override
     public Map<String, Long> getIdentifiers() {
-        return identifier;
+        return this.identifier;
     }
 }
