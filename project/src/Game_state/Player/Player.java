@@ -11,5 +11,6 @@ public interface Player {
     void updateBudget(double money);
     int getCityCrewLocation();
     int getCityCenterLocation();
+    int getCityCenterRow();
     Map<String, Long> getIdentifiers();
 }

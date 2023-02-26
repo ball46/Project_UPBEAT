@@ -82,15 +82,6 @@ public class ReadData {//This is default data
         return territory;
     }
 
-    public static List<Row> createMap3(){
-        List<Row> territory = new ArrayList<>();
-        for(int i = 1; i <= ReadData.getRows(); i++){
-            Row row = new Row();
-            territory.add((Row) row.createRow(i));
-        }
-        return territory;
-    }
-
     public static Region randomCityCenter(){
         Region region;
         Random random = new Random();

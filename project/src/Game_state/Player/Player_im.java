@@ -46,6 +46,11 @@ public class Player_im implements Player{
     }
 
     @Override
+    public int getCityCenterRow() {
+        return this.CityCenter.getNumRow();
+    }
+
+    @Override
     public boolean life() {
         return this.life;
     }

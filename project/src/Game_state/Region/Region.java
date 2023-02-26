@@ -8,4 +8,5 @@ public interface Region {
     long getDeposit();
     void updateDeposit(double money);
     int getLocation();
+    int getNumRow();
 }
