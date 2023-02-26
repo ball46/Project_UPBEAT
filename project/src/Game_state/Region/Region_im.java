@@ -4,9 +4,10 @@ import Game_state.Player.Player;
 
 public class Region_im implements Region {
     private final int location;
+//    private final int locate_row;
     private Player owner;
     private long deposit;
-    public Region_im(int location){
+    public Region_im(int location) {
         this.location = location;
         this.owner = null;
         this.deposit = 0;
@@ -36,13 +37,4 @@ public class Region_im implements Region {
         return this.location;
     }
 
-    @Override
-    public int Opponent() {
-        return 0;
-    }
-
-    @Override
-    public int nearby() {
-        return 0;
-    }
 }

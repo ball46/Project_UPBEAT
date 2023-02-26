@@ -1,7 +1,6 @@
 package Game_state.Player;
 
 import Game_state.Region.Region;
-import Type.Direction;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,24 +36,6 @@ public class Player_im implements Player{
     }
 
     @Override
-    public void moveCityCrew(Direction direction) {
-//        switch (direction) {
-//            case "up" -> this.CityCrew[0]--;
-//            case "down" -> this.CityCrew[0]++;
-//            case "upleft" -> {
-//                this.CityCrew[0]--;
-//                this.CityCrew[1]--;
-//            }
-//            case "upright" -> {
-//                this.CityCrew[0]--;
-//                this.CityCrew[1]++;
-//            }
-//            case "downleft" -> this.CityCrew[1]--;
-//            case "downright" -> this.CityCrew[1]++;
-//        }
-    }
-
-    @Override
     public int getCityCrewLocation() {
         return this.CityCrew.getLocation();
     }
@@ -67,11 +48,6 @@ public class Player_im implements Player{
     @Override
     public boolean life() {
         return this.life;
-    }
-
-    @Override
-    public long attack(String direction) {
-        return 0;
     }
 
     @Override

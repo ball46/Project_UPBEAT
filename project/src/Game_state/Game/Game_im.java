@@ -10,8 +10,9 @@ import java.util.Map;
 
 public class Game_im implements Game{
     private final Player player1, player2;
-    private Player current_player;
     private final List<Region> territory;
+    private final long actionCost = 1;
+    private Player current_player;
     public Game_im(String nameP1, String nameP2) {
         this.player1 = ReadData.createPlayer(nameP1);
         this.player2 = ReadData.createPlayer(nameP2);
@@ -101,4 +102,6 @@ public class Game_im implements Game{
             current_player = this.player1;
         }
     }
+    //action command is pay 1 coin
+    //information command is pay 0 coin
 }

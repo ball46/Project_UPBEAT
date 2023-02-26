@@ -15,4 +15,10 @@ public class GameError extends RuntimeException {
             super("Money is less than zero : " + money);
         }
     }
+
+    public static class DoNotSendFile extends GameError {
+        public DoNotSendFile(String message) {
+            super("You don't send configuration file : " + message);
+        }
+    }
 }

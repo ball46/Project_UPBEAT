@@ -9,9 +9,7 @@ public interface Player {
     String getName();
     long getBudget();
     void updateBudget(double money);
-    void moveCityCrew(Direction direction);
     int getCityCrewLocation();
     int getCityCenterLocation();
-    long attack(String direction);
     Map<String, Long> getIdentifiers();
 }

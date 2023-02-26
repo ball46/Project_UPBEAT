@@ -26,9 +26,9 @@ public class ReadData {//This is default data
     private static long maxDeposit = 1000000;//maximum deposit for each region
     private static long interestRatePercentage = 5;
     private static List<Region> territory;
-    public static void getDataFile(){
+    public static void getDataFile(String locate){
         Gson gson = new Gson();
-        Path path = Path.of("D:\\UPBEAT\\project\\src\\Data\\ConfigFile.json");
+        Path path = Path.of(locate);
         try(BufferedReader reader = Files.newBufferedReader(path)){
             Map data = gson.fromJson(reader, Map.class);
             for(Object key : data.keySet()){
@@ -58,14 +58,34 @@ public class ReadData {//This is default data
                 }
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new GameError.DoNotSendFile(e.getMessage());
         }
     }
 
     public static List<Region> createMap(){
         territory = new ArrayList<>();
-        for(int i = 0; i < rows * cols; i++){
+        for(int i = 1; i <= rows * cols; i++){
             territory.add(new Region_im(i));
+        }
+        return territory;
+    }
+
+    public static List<List<Region>> createMap2(){
+        List<List<Region>> territory = new ArrayList<>();
+        for(int i = 1; i <= rows; i++){
+            List<Region> row = new ArrayList<>();
+            for(int j = 1; j <= cols; j++){
+                row.add(new Region_im(j));
+            }
+            territory.add(row);
+        }
+        return territory;
+    }
+
+    public static List<Row> createMap3(){
+        List<Row> territory = new ArrayList<>();
+        for(int i = 1; i <= ReadData.getRows(); i++){
+            territory.add((Row) Row.createRow(i));
         }
         return territory;
     }
@@ -74,7 +94,9 @@ public class ReadData {//This is default data
         Region region;
         Random random = new Random();
         do {
-            int location = random.nextInt(territory.size()) + 1;
+//            int location = random.nextInt(territory.size());
+            int size = (int) (rows * cols);
+            int location = random.nextInt( size );
             region = territory.get(location);
         }while (region.getOwner()!= null);
         return region;
