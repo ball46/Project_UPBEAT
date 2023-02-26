@@ -1,6 +1,9 @@
 package Game_state.Game;
 
+import Game_state.Region.Row;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -37,5 +40,13 @@ class ReadDataTest {
         ReadData.getDataFile(locate);
         ReadData.createMap();
         assertNotNull(ReadData.createPlayer("ball"));
+    }
+
+    @Test
+    public void testCreateMap3(){
+        String locate = "D:\\UPBEAT\\project\\src\\Data\\TestRead.json";
+        ReadData.getDataFile(locate);
+        List<Row> territory = ReadData.createMap3();
+        assertEquals(1, territory.get(1).getCountRow());
     }
 }

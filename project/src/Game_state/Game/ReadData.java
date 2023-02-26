@@ -85,7 +85,8 @@ public class ReadData {//This is default data
     public static List<Row> createMap3(){
         List<Row> territory = new ArrayList<>();
         for(int i = 1; i <= ReadData.getRows(); i++){
-            territory.add((Row) Row.createRow(i));
+            Row row = new Row();
+            territory.add((Row) row.createRow(i));
         }
         return territory;
     }
