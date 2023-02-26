@@ -43,13 +43,4 @@ class ReadDataTest {
         ReadData.createMap();
         assertNotNull(ReadData.createPlayer("ball"));
     }
-
-    @Test
-    public void testCreateMap2(){
-        String locate = "D:\\UPBEAT\\project\\src\\Data\\TestRead.json";
-        ReadData.getDataFile(locate);
-        List<List<Region>> territory = ReadData.createMap2();
-        Player player = ReadData.createPlayer("ball");
-        assertEquals(1, territory.get(player.getCityCenterRow()).get(player.getCityCenterLocation()));
-    }
 }
