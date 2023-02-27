@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class Tokenizer_imTest {
     private Tokenizer tokenizer;
     @Test
-    public void testhasNexttoken() {
+    public void testHasNextToken() {
         tokenizer = new Tokenizer_im(null);
         assertFalse(tokenizer.hasNextToken());
         tokenizer = new Tokenizer_im("");
@@ -19,7 +19,7 @@ class Tokenizer_imTest {
     }
 
     @Test
-    public void testpeek() {
+    public void testPeek() {
         tokenizer = new Tokenizer_im(null);
         assertThrows(TokenizerError.NextNull.class, () -> tokenizer.peek());
         tokenizer = new Tokenizer_im("");
@@ -31,7 +31,7 @@ class Tokenizer_imTest {
     }
 
     @Test
-    public void testpeekhasString() {
+    public void testPeekHasString() {
         tokenizer = new Tokenizer_im(null);
         assertThrows(TokenizerError.NextNull.class, () -> tokenizer.peek(""));
         assertThrows(TokenizerError.NextNull.class, () -> tokenizer.peek("abc"));
@@ -51,7 +51,7 @@ class Tokenizer_imTest {
     }
 
     @Test
-    public void testconsume() {
+    public void testConsume() {
         tokenizer = new Tokenizer_im(null);
         assertThrows(TokenizerError.NextNull.class, () -> tokenizer.consume());
         assertThrows(TokenizerError.NextNull.class, () -> tokenizer.consume(""));
@@ -68,7 +68,7 @@ class Tokenizer_imTest {
     }
 
     @Test
-    public void testconsumehasString() {
+    public void testConsumeHasString() {
         tokenizer = new Tokenizer_im(null);
         assertThrows(TokenizerError.NextNull.class, () -> tokenizer.consume(""));
         assertThrows(TokenizerError.NextNull.class, () -> tokenizer.consume("abc"));
@@ -91,5 +91,13 @@ class Tokenizer_imTest {
     public void testComment() throws IOException {
         tokenizer = new Tokenizer_im("# i am ball\n 555 \n # no no i am boss");
         assertEquals("555", tokenizer.consume());
+    }
+
+    @Test
+    public void testEnterLine(){
+        tokenizer = new Tokenizer_im("x = \n 1");
+        assertEquals("x", tokenizer.consume());
+        assertEquals("=", tokenizer.consume());
+        assertEquals("1", tokenizer.consume());
     }
 }
