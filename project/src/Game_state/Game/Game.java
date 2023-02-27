@@ -11,7 +11,7 @@ public interface Game {
     void attack(Direction direction, long money);
     boolean collect(long money);
     void invest(long money);
-    void move(Direction direction);
+    boolean move(Direction direction);
     void relocate();
     long nearby(Direction direction);
     long opponent();

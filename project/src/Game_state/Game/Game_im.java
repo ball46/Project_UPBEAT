@@ -48,15 +48,13 @@ public class Game_im implements Game{
             return false;
         current_player.updateBudget(-actionCost);
         Region targetRegion = CurrentCityCrew();
-        if(!targetRegion.getOwner().getName().equals(current_player.getName()))
+        if(targetRegion.getOwner() != current_player)
             return false;
         if(money > targetRegion.getDeposit()){
-            current_player.updateBudget(targetRegion.getDeposit());
-            targetRegion.updateDeposit(-targetRegion.getDeposit());
-        }else {
-            current_player.updateBudget(money);
-            targetRegion.updateDeposit(-money);
+            return false;
         }
+        current_player.updateBudget(money);
+        targetRegion.updateDeposit(-money);
         if(targetRegion.getDeposit() == 0)
             targetRegion.updateOwner(null);
         return true;
@@ -71,11 +69,12 @@ public class Game_im implements Game{
 
     @Override
     public void invest(long money) {
+        current_player.updateBudget(-actionCost);
 
     }
 
     @Override
-    public void move(Direction direction) {
+    public boolean move(Direction direction) {
         if(checkBudget()) {
             int location = current_player.getCityCrewLocation();
             switch (direction) {
@@ -98,8 +97,11 @@ public class Game_im implements Game{
                     else location += ReadData.getCols() + 1;
                 }
             }
+            if(territory.get(location).getOwner() != null) return false;
             cityCrew = territory.get(location);
+            return true;
         }
+        return false;
     }
 
     public void beginTurn() {
@@ -108,7 +110,6 @@ public class Game_im implements Game{
 
     @Override
     public void relocate() {
-
     }
 
     @Override
