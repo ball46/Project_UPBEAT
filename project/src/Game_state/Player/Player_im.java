@@ -46,6 +46,11 @@ public class Player_im implements Player{
     }
 
     @Override
+    public Region getCityCenter() {
+        return this.CityCenter;
+    }
+
+    @Override
     public boolean life() {
         return this.life;
     }

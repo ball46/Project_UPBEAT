@@ -1,6 +1,6 @@
 package Game_state.Player;
 
-import Type.Direction;
+import Game_state.Region.Region;
 
 import java.util.Map;
 
@@ -11,5 +11,6 @@ public interface Player {
     void updateBudget(double money);
     int getCityCrewLocation();
     int getCityCenterLocation();
+    Region getCityCenter();
     Map<String, Long> getIdentifiers();
 }

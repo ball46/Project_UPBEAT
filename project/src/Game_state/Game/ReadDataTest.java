@@ -1,11 +1,6 @@
 package Game_state.Game;
 
-import Game_state.Player.Player;
-import Game_state.Region.Region;
-import Game_state.Region.Row;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 

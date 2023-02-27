@@ -4,7 +4,6 @@ import Game_state.Player.*;
 import Game_state.Region.*;
 import Type.Direction;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,11 +12,24 @@ public class Game_im implements Game{
     private final List<Region> territory;
     private final long actionCost = 1;
     private Player current_player;
+    private Region cityCrew;
     public Game_im(String nameP1, String nameP2) {
+        this.territory = ReadData.createMap();
         this.player1 = ReadData.createPlayer(nameP1);
         this.player2 = ReadData.createPlayer(nameP2);
-        this.territory = ReadData.createMap();
         this.current_player = this.player1;
+    }
+
+    private boolean checkBudget() {
+        return current_player.getBudget() >= actionCost;
+    }
+
+    private Region CityCenter() {
+        return territory.get(current_player.getCityCenterLocation());
+    }
+
+    private Region CityCrew() {
+        return territory.get(current_player.getCityCrewLocation());
     }
 
     @Override
@@ -31,27 +43,30 @@ public class Game_im implements Game{
     }
 
     @Override
-    public void collect(long money) {
-        if(money <= 0)
-            throw new GameError.MoneyIsLessThanZero(money);
-        if(current_player.getBudget() < 1)
-            return;
-        Region region = CurrentCityCrew();
-        if(!region.getOwner().getName().equals(current_player.getName()))
-            return;
-        if(money > region.getDeposit())
-            return;
-        region.updateDeposit(-money);
-        current_player.updateBudget(money);
-        if(region.getDeposit() == 0)
-            region.updateOwner(null);
+    public boolean collect(long money) {
+        if(money < 0 || !checkBudget())
+            return false;
+        current_player.updateBudget(-actionCost);
+        Region targetRegion = CurrentCityCrew();
+        if(!targetRegion.getOwner().getName().equals(current_player.getName()))
+            return false;
+        if(money > targetRegion.getDeposit()){
+            current_player.updateBudget(targetRegion.getDeposit());
+            targetRegion.updateDeposit(-targetRegion.getDeposit());
+        }else {
+            current_player.updateBudget(money);
+            targetRegion.updateDeposit(-money);
+        }
+        if(targetRegion.getDeposit() == 0)
+            targetRegion.updateOwner(null);
+        return true;
     }
     private Region CurrentCityCenter() {
-        return this.territory.get(current_player.getCityCenterLocation());
+        return CityCenter();
     }
 
     private Region CurrentCityCrew() {
-        return this.territory.get(current_player.getCityCrewLocation());
+        return CityCrew();
     }
 
     @Override
@@ -61,7 +76,34 @@ public class Game_im implements Game{
 
     @Override
     public void move(Direction direction) {
+        if(checkBudget()) {
+            int location = current_player.getCityCrewLocation();
+            switch (direction) {
+                case Up -> location -= ReadData.getCols();
+                case Down -> location += ReadData.getCols();
+                case UpLeft -> {
+                    if (location % 2 == 0) location -= ReadData.getCols() + 1;
+                    else location--;
+                }
+                case UpRight -> {
+                    if (location % 2 == 0) location += 1 - ReadData.getCols();
+                    else location++;
+                }
+                case DownLeft -> {
+                    if (location % 2 == 0) location--;
+                    else location += ReadData.getCols() - 1;
+                }
+                case DownRight -> {
+                    if (location % 2 == 0) location++;
+                    else location += ReadData.getCols() + 1;
+                }
+            }
+            cityCrew = territory.get(location);
+        }
+    }
 
+    public void beginTurn() {
+        this.cityCrew = current_player.getCityCenter();
     }
 
     @Override
