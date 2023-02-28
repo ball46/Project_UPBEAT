@@ -59,4 +59,11 @@ public class Player_im implements Player{
     public Map<String, Long> getIdentifiers() {
         return this.identifier;
     }
+
+    @Override
+    public void updateCityCenter(Region to) {
+        CityCenter.updateOwner(null);
+        CityCenter = to;
+        CityCenter.updateOwner(this);
+    }
 }

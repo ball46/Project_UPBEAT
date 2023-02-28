@@ -13,4 +13,5 @@ public interface Player {
     int getCityCenterLocation();
     Region getCityCenter();
     Map<String, Long> getIdentifiers();
+    void updateCityCenter(Region to);
 }
