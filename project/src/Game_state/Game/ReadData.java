@@ -65,7 +65,11 @@ public class ReadData {//This is default data
     public static List<Region> createMap(){
         territory = new ArrayList<>();
         for(int i = 1; i <= rows * cols; i++){
-            territory.add(new Region_im(i));
+            Region region = new Region_im(i);
+            int col = i % (int) cols != 0 ? i % (int) cols : (int) cols;
+            int row = i % (int) cols != 0 ? (i / (int) cols) + 1 : i / (int) cols;
+            region.AddAddress(row, col);
+            territory.add(region);
         }
         return territory;
     }
@@ -76,7 +80,7 @@ public class ReadData {//This is default data
         do {
             int location = random.nextInt(territory.size());
             region = territory.get(location);
-        }while (region.getOwner()!= null);
+        }while (region.getOwner() != null);
         return region;
     }
 
