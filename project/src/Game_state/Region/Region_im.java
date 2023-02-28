@@ -6,6 +6,7 @@ public class Region_im implements Region {
     private final int location;
     private Player owner;
     private long deposit;
+    private  int row, col;
     public Region_im(int location) {
         this.location = location;
         this.owner = null;
@@ -34,6 +35,22 @@ public class Region_im implements Region {
     @Override
     public int getLocation() {
         return this.location;
+    }
+
+    @Override
+    public int getRow() {
+        return row;
+    }
+
+    @Override
+    public int getCol() {
+        return col;
+    }
+
+    @Override
+    public void AddAddress(int row, int col) {
+        this.row = row;
+        this.col = col;
     }
 
 }
