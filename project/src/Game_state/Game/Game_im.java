@@ -47,7 +47,7 @@ public class Game_im implements Game{
         if(money < 0 || !checkBudget())
             return false;
         current_player.updateBudget(-actionCost);
-        Region targetRegion = CurrentCityCrew();
+        Region targetRegion = CityCrew();
         if(targetRegion.getOwner() != current_player)
             return false;
         if(money > targetRegion.getDeposit()){
@@ -59,42 +59,38 @@ public class Game_im implements Game{
             targetRegion.updateOwner(null);
         return true;
     }
-    private Region CurrentCityCenter() {
-        return CityCenter();
-    }
-
-    private Region CurrentCityCrew() {
-        return CityCrew();
-    }
 
     @Override
     public void invest(long money) {
-        current_player.updateBudget(-actionCost);
-
+        if(checkBudget()) {
+            current_player.updateBudget(-actionCost);
+        }
     }
 
     @Override
     public boolean move(Direction direction) {
         if(checkBudget()) {
+            current_player.updateBudget(-actionCost);
             int location = current_player.getCityCrewLocation();
+            int column = (int) ReadData.getCols();
             switch (direction) {
-                case Up -> location -= ReadData.getCols();
-                case Down -> location += ReadData.getCols();
+                case Up -> location -= column;
+                case Down -> location += column;
                 case UpLeft -> {
-                    if (location % 2 == 0) location -= ReadData.getCols() + 1;
+                    if (location % 2 == 0) location -= column + 1;
                     else location--;
                 }
                 case UpRight -> {
-                    if (location % 2 == 0) location += 1 - ReadData.getCols();
+                    if (location % 2 == 0) location += 1 - column;
                     else location++;
                 }
                 case DownLeft -> {
                     if (location % 2 == 0) location--;
-                    else location += ReadData.getCols() - 1;
+                    else location += column - 1;
                 }
                 case DownRight -> {
                     if (location % 2 == 0) location++;
-                    else location += ReadData.getCols() + 1;
+                    else location += column + 1;
                 }
             }
             if(territory.get(location).getOwner() != null) return false;
@@ -110,6 +106,24 @@ public class Game_im implements Game{
 
     @Override
     public void relocate() {
+        if(checkBudget()){
+            current_player.updateBudget(-actionCost);
+            if(cityCrew.getOwner() == current_player) {
+                int cityCenterRow = current_player.getCityCenter().getRow();
+                int cityCenterCol = current_player.getCityCenter().getCol();
+                int cityCrewRow = cityCrew.getRow();
+                int cityCrewCol = cityCrew.getCol();
+                int distance = (int) Math.sqrt(Math.pow(cityCenterRow - cityCrewRow, 2) + Math.pow(cityCenterCol - cityCrewCol, 2));
+                if (distance < 0) distance = 1;
+                int cost = (5 * distance) + 10;
+                if (current_player.getBudget() >= cost) {
+                    current_player.updateBudget(-cost);
+                    CityCenter().updateOwner(null);
+                    cityCrew.updateOwner(current_player);
+                    current_player.updateCityCenter(cityCrew);
+                }
+            }
+        }
     }
 
     @Override
