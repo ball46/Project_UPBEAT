@@ -31,7 +31,7 @@ public class Player_im implements Player{
     }
 
     @Override
-    public void updateBudget(double money) {
+    public void updateBudget(long money) {
         this.budget += money;
     }
 

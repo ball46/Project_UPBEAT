@@ -8,7 +8,7 @@ public interface Player {
     boolean life();
     String getName();
     long getBudget();
-    void updateBudget(double money);
+    void updateBudget(long money);
     int getCityCrewLocation();
     int getCityCenterLocation();
     Region getCityCenter();
