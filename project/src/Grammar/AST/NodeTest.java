@@ -2,6 +2,7 @@ package Grammar.AST;
 
 import Game_state.Game.Game;
 import Game_state.Game.Game_im;
+import Game_state.Game.ReadData;
 import Grammar.AST.State.AssignmentNode;
 import Grammar.AST.State.DoneNode;
 import Grammar.AST.State.IfNode;
@@ -13,7 +14,7 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 class NodeTest {
-    Game game = new Game_im("ball", "boss");
+    Game game = new Game_im("ball", "boss", ReadData.createMap());
     Node.StateNode node, trueNode = new DoneNode(), falseNode = new DoneNode();
     Node.ExprNode expr;
     Map<String, Long> map = game.getIdentifiers();
