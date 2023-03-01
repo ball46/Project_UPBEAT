@@ -4,6 +4,7 @@ import Game_state.Player.*;
 import Game_state.Region.*;
 import Type.Direction;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -172,7 +173,23 @@ public class Game_im implements Game{
 
     @Override
     public long opponent() {
-        //TODO implement
+        Region[] suffuse = new Region_im[6];
+        long distance = 0;
+        boolean stop;
+        Arrays.fill(suffuse, cityCrew);
+        do {
+            for(int i = 0 ; i < 6; i++){
+                if(suffuse[i] == null) continue;
+                long location = suffuse[i].getLocation();
+                Player player = territory.get((int) location).getOwner();
+                if(player != null && player != current_player)
+                    return i + 1L + (distance * 10L);
+                suffuse[i] = territory.get(mockMove(Direction.values()[i], (int) location));
+            }
+            stop = true;
+            for(Region region : suffuse) stop = stop && (region == null);
+            distance++;
+        } while (!stop);
         return 0;
     }
 
