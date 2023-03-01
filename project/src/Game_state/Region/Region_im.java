@@ -28,7 +28,7 @@ public class Region_im implements Region {
     }
 
     @Override
-    public void updateDeposit(double money) {
+    public void updateDeposit(long money) {
         this.deposit += money;
     }
 

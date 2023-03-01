@@ -6,7 +6,7 @@ public interface Region {
     Player getOwner();
     void updateOwner(Player owner);
     long getDeposit();
-    void updateDeposit(double money);
+    void updateDeposit(long money);
     int getLocation();
     int getRow();
     int getCol();
