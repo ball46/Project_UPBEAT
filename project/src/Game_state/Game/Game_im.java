@@ -42,7 +42,7 @@ public class Game_im implements Game{
         if(checkBudget()) {
             current_player.updateBudget(-actionCost);
             if(current_player.getBudget() < money || money < 0) return;
-            Region targetRegion = territory.get(mockMove(direction));
+            Region targetRegion = territory.get(mockMove(direction, current_player.getCityCrewLocation()));
             if(targetRegion != null){
                 if(money < targetRegion.getDeposit()) {
                     targetRegion.updateDeposit(-money);
@@ -94,8 +94,7 @@ public class Game_im implements Game{
         }
     }
 
-    public int mockMove(Direction direction){
-        int location = current_player.getCityCrewLocation();
+    public int mockMove(Direction direction, int location){
         int column = (int) ReadData.getCols();
         switch (direction) {
             case Up -> location -= column;
@@ -124,7 +123,7 @@ public class Game_im implements Game{
     public boolean move(Direction direction) {
         if(checkBudget()) {
             current_player.updateBudget(-actionCost);
-            int location = mockMove(direction);
+            int location = mockMove(direction, current_player.getCityCrewLocation());
             if(territory.get(location).getOwner() != null && territory.get(location).getOwner() != current_player) return false;
             cityCrew = territory.get(location);
             return true;
@@ -160,13 +159,15 @@ public class Game_im implements Game{
 
     @Override
     public long nearby(Direction direction) {
-        //TODO implement
-        int currentRowRegion = cityCrew.getRow();
-        int currentColRegion = cityCrew.getCol();
-        int distance = 0;
-        int newRowRegion;
-        int newColRegion;
-        return 0;
+        long distance = 0;
+        Region targetRegion = territory.get(mockMove(direction, current_player.getCityCrewLocation()));
+        while(targetRegion != null){
+            distance++;
+            if(targetRegion.getOwner() != null && targetRegion.getOwner()!= current_player)
+                return ((distance) * 100 + (long) (Math.log10(targetRegion.getDeposit() + 1)) +1);
+            targetRegion = territory.get(mockMove(direction, targetRegion.getLocation()));
+        }
+        return 0L;
     }
 
     @Override
