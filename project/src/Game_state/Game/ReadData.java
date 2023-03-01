@@ -18,7 +18,7 @@ public class ReadData {//This is default data
     private static long cols = 15;
     private static long initialPlanMinutes = 5;//number of minutes to initial construction plan
     private static long initialPlanSeconds = 0;
-    private static long initialBudget = 10000;//is my mon`ey
+    private static long initialBudget = 10000;//is my money
     private static long initialCenterDeposit = 100;//is my money in city center
     private static long planRevisionMinutes = 30;//number of minutes to revisions construction plan
     private static long planRevisionSeconds = 0;
