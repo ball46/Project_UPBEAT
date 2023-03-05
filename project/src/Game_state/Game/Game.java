@@ -22,5 +22,5 @@ public interface Game {
     long getBudget();
     void beginTurn();
     void endTurn();
-    void sendPlan() throws IOException;
+    void sendPlan(String pathFile) throws IOException;
 }

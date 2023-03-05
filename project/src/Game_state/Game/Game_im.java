@@ -228,8 +228,8 @@ public class Game_im implements Game{
     }
 
     @Override
-    public void sendPlan() throws IOException {
-        Path fileName = Path.of("D:\\UPBEAT\\project\\src\\Construction\\Testfile.txt");
+    public void sendPlan(String pathFile) throws IOException {
+        Path fileName = Path.of(pathFile);
         String constructionPlan = Files.readString(fileName);
         Parser parser = new Parser_im(new Tokenizer_im(constructionPlan));
         Node.StateNode node = parser.parse();
