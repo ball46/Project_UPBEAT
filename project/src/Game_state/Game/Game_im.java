@@ -14,10 +14,10 @@ public class Game_im implements Game{
     private final long actionCost = 1;
     private Player current_player;
     private Region cityCrew;
-    public Game_im(String nameP1, String nameP2, List<Region> territory) {
+    public Game_im(Player player1, Player p2, List<Region> territory) {
         this.territory = territory;
-        this.player1 = ReadData.createPlayer(nameP1);
-        this.player2 = ReadData.createPlayer(nameP2);
+        this.player1 = player1;
+        this.player2 = p2;
         this.current_player = this.player1;
     }
 
@@ -27,10 +27,6 @@ public class Game_im implements Game{
 
     private Region CityCenter() {
         return territory.get(current_player.getCityCenterLocation());
-    }
-
-    private Region CityCrew() {
-        return territory.get(current_player.getCityCrewLocation());
     }
 
     @Override
@@ -43,7 +39,7 @@ public class Game_im implements Game{
         if(checkBudget()) {
             current_player.updateBudget(-actionCost);
             if(current_player.getBudget() < money || money < 0) return;
-            Region targetRegion = territory.get(mockMove(direction, current_player.getCityCrewLocation()));
+            Region targetRegion = territory.get(mockMove(direction, cityCrew.getLocation()));
             if(targetRegion != null){
                 if(money < targetRegion.getDeposit()) {
                     targetRegion.updateDeposit(-money);
@@ -61,7 +57,7 @@ public class Game_im implements Game{
         if(money < 0 || !checkBudget())
             return false;
         current_player.updateBudget(-actionCost);
-        Region targetRegion = CityCrew();
+        Region targetRegion = cityCrew;
         if(targetRegion.getOwner() != current_player)
             return false;
         if(money > targetRegion.getDeposit()){
@@ -124,16 +120,12 @@ public class Game_im implements Game{
     public boolean move(Direction direction) {
         if(checkBudget()) {
             current_player.updateBudget(-actionCost);
-            int location = mockMove(direction, current_player.getCityCrewLocation());
+            int location = mockMove(direction, cityCrew.getLocation());
             if(territory.get(location).getOwner() != null && territory.get(location).getOwner() != current_player) return false;
             cityCrew = territory.get(location);
             return true;
         }
         return false;
-    }
-
-    public void beginTurn() {
-        this.cityCrew = current_player.getCityCenter();
     }
 
     @Override
@@ -161,7 +153,7 @@ public class Game_im implements Game{
     @Override
     public long nearby(Direction direction) {
         long distance = 0;
-        Region targetRegion = territory.get(mockMove(direction, current_player.getCityCrewLocation()));
+        Region targetRegion = territory.get(mockMove(direction, cityCrew.getLocation()));
         while(targetRegion != null){
             distance++;
             if(targetRegion.getOwner() != null && targetRegion.getOwner()!= current_player)
@@ -216,6 +208,8 @@ public class Game_im implements Game{
             current_player = this.player1;
         }
     }
-    //action command is pay 1 coin
-    //information command is pay 0 coin
+
+    public void beginTurn() {
+        this.cityCrew = current_player.getCityCenter();
+    }
 }

@@ -9,7 +9,6 @@ public interface Player {
     String getName();
     long getBudget();
     void updateBudget(long money);
-    int getCityCrewLocation();
     int getCityCenterLocation();
     Region getCityCenter();
     Map<String, Long> getIdentifiers();

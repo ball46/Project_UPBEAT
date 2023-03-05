@@ -14,8 +14,8 @@ import java.util.Map;
 import java.util.Random;
 
 public class ReadData {//This is default data
-    private static long rows = 20;
-    private static long cols = 15;
+    private static long rows = 10;
+    private static long cols = 10;
     private static long initialPlanMinutes = 5;//number of minutes to initial construction plan
     private static long initialPlanSeconds = 0;
     private static long initialBudget = 10000;//is my money
