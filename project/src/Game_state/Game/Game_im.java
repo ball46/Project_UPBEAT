@@ -97,7 +97,7 @@ public class Game_im implements Game{
             case Up -> location -= column;
             case Down -> location += column;
             case UpLeft -> {
-                if (location % 2 == 0) location -= column + 1;
+                if (location % 2 == 0) location -= (column + 1);
                 else location--;
             }
             case UpRight -> {
@@ -121,6 +121,7 @@ public class Game_im implements Game{
         if(checkBudget()) {
             current_player.updateBudget(-actionCost);
             int location = mockMove(direction, cityCrew.getLocation());
+            if(location < 0 || location >= territory.size()) return false;
             if(territory.get(location).getOwner() != null && territory.get(location).getOwner() != current_player) return false;
             cityCrew = territory.get(location);
             return true;

@@ -14,16 +14,89 @@ class GameTest {
     Player p1 = ReadData.createPlayer("p1");
     Player p2 = ReadData.createPlayer("p2");
     Game game = new Game_im(p1, p2, territory);
+    int col = (int) ReadData.getCols();
+    int row = (int) ReadData.getRows();
     @Test
-    public void testMockMove( ){
-        int locationP1 = p1.getCityCenterLocation();
-        int locationP2 = p2.getCityCenterLocation();
+    public void testMove( ){
+        //test move player 1
+        int locationCurrentPlayer = p1.getCityCenterLocation();
         game.beginTurn();
-        game.move(Direction.Up);
-        assertEquals(locationP1 - ReadData.getCols() , game.getCityCrew().getLocation());
+        if(game.move(Direction.Up)) {
+            assertEquals(locationCurrentPlayer - col, game.getCityCrew().getLocation());
+        }
+
+        locationCurrentPlayer = game.getCityCrew().getLocation();
+        if(game.move(Direction.UpRight)) {
+            if (locationCurrentPlayer % 2 == 0)
+                assertEquals(locationCurrentPlayer + 1 - col, game.getCityCrew().getLocation());
+            else assertEquals(++locationCurrentPlayer, game.getCityCrew().getLocation());
+        }
+
+        locationCurrentPlayer = game.getCityCrew().getLocation();
+        if(game.move(Direction.DownRight)) {
+            if (locationCurrentPlayer % 2 == 0)
+                assertEquals(++locationCurrentPlayer, game.getCityCrew().getLocation());
+            else assertEquals(locationCurrentPlayer + col + 1, game.getCityCrew().getLocation());
+        }
+
+        locationCurrentPlayer = game.getCityCrew().getLocation();
+        if(game.move(Direction.Down)) {
+            assertEquals(locationCurrentPlayer + col, game.getCityCrew().getLocation());
+        }
+
+        locationCurrentPlayer = game.getCityCrew().getLocation();
+        if(game.move(Direction.DownLeft)) {
+            if (locationCurrentPlayer % 2 == 0)
+                assertEquals(--locationCurrentPlayer, game.getCityCrew().getLocation());
+            else assertEquals(locationCurrentPlayer + col - 1, game.getCityCrew().getLocation());
+        }
+
+        locationCurrentPlayer = game.getCityCrew().getLocation();
+        if(game.move(Direction.UpLeft)) {
+            if (locationCurrentPlayer % 2 == 0)
+                assertEquals(locationCurrentPlayer - (col + 1), game.getCityCrew().getLocation());
+            else assertEquals(--locationCurrentPlayer, game.getCityCrew().getLocation());
+        }
+
+        //test move player 2
         game.endTurn();
         game.beginTurn();
-        game.move(Direction.Down);
-        assertEquals(locationP2 + ReadData.getCols() , game.getCityCrew().getLocation());
+        locationCurrentPlayer = p2.getCityCenterLocation();
+        if(game.move(Direction.Up)) {
+            assertEquals(locationCurrentPlayer - col, game.getCityCrew().getLocation());
+        }
+
+        locationCurrentPlayer = game.getCityCrew().getLocation();
+        if(game.move(Direction.UpRight)) {
+            if (locationCurrentPlayer % 2 == 0)
+                assertEquals(locationCurrentPlayer + 1 - col, game.getCityCrew().getLocation());
+            else assertEquals(++locationCurrentPlayer, game.getCityCrew().getLocation());
+        }
+
+        locationCurrentPlayer = game.getCityCrew().getLocation();
+        if(game.move(Direction.DownRight)) {
+            if (locationCurrentPlayer % 2 == 0)
+                assertEquals(++locationCurrentPlayer, game.getCityCrew().getLocation());
+            else assertEquals(locationCurrentPlayer + col + 1, game.getCityCrew().getLocation());
+        }
+
+        locationCurrentPlayer = game.getCityCrew().getLocation();
+        if(game.move(Direction.Down)) {
+            assertEquals(locationCurrentPlayer + col, game.getCityCrew().getLocation());
+        }
+
+        locationCurrentPlayer = game.getCityCrew().getLocation();
+        if(game.move(Direction.DownLeft)) {
+            if (locationCurrentPlayer % 2 == 0)
+                assertEquals(--locationCurrentPlayer, game.getCityCrew().getLocation());
+            else assertEquals(locationCurrentPlayer + col - 1, game.getCityCrew().getLocation());
+        }
+
+        locationCurrentPlayer = game.getCityCrew().getLocation();
+        if(game.move(Direction.UpLeft)) {
+            if (locationCurrentPlayer % 2 == 0)
+                assertEquals(locationCurrentPlayer - (col + 1), game.getCityCrew().getLocation());
+            else assertEquals(--locationCurrentPlayer, game.getCityCrew().getLocation());
+        }
     }
 }
