@@ -17,6 +17,8 @@ public interface Game {
     long opponent();
     List<Region> getTerritory();
     Region getRegion(int location);
+    Region getCityCrew();
     long getBudget();
+    void beginTurn();
     void endTurn();
 }

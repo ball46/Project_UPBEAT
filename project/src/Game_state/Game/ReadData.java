@@ -64,7 +64,7 @@ public class ReadData {//This is default data
 
     public static List<Region> createMap(){
         territory = new ArrayList<>();
-        for(int i = 1; i <= rows * cols; i++){
+        for(int i = 0; i < rows * cols; i++){
             Region region = new Region_im(i);
             int col = i % (int) cols != 0 ? i % (int) cols : (int) cols;
             int row = i % (int) cols != 0 ? (i / (int) cols) + 1 : i / (int) cols;

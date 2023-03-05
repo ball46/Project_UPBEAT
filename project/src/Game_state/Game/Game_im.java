@@ -196,6 +196,11 @@ public class Game_im implements Game{
     }
 
     @Override
+    public Region getCityCrew() {
+        return cityCrew;
+    }
+
+    @Override
     public long getBudget() {
         return current_player.getBudget();
     }
@@ -209,6 +214,7 @@ public class Game_im implements Game{
         }
     }
 
+    @Override
     public void beginTurn() {
         this.cityCrew = current_player.getCityCenter();
     }
