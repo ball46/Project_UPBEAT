@@ -2,8 +2,15 @@ package Game_state.Game;
 
 import Game_state.Player.*;
 import Game_state.Region.*;
+import Grammar.AST.Node;
+import Grammar.Parser.Parser;
+import Grammar.Parser.Parser_im;
+import Grammar.Tokenizer.Tokenizer_im;
 import Type.Direction;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -218,5 +225,18 @@ public class Game_im implements Game{
     @Override
     public void beginTurn() {
         this.cityCrew = current_player.getCityCenter();
+    }
+
+    @Override
+    public void sendPlan() throws IOException {
+        Path fileName = Path.of("D:\\UPBEAT\\project\\src\\Construction\\Testfile.txt");
+        String constructionPlan = Files.readString(fileName);
+        Parser parser = new Parser_im(new Tokenizer_im(constructionPlan));
+        Node.StateNode node = parser.parse();
+        beginTurn();
+        while(node!= null){
+            node = node.evaluate(this);
+        }
+        endTurn();
     }
 }

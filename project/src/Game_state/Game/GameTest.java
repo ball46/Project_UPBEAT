@@ -99,4 +99,13 @@ class GameTest {
             else assertEquals(--locationCurrentPlayer, game.getCityCrew().getLocation());
         }
     }
+
+    @Test
+    public void testRelocate( ){
+        game.beginTurn();
+        int locationCurrentPlayer = p1.getCityCenterLocation();
+        int counter = 0;
+        for(int i = 0; i < 4; i++) if(game.move(Direction.Up)) counter++;
+
+    }
 }

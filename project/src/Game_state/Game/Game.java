@@ -3,6 +3,7 @@ package Game_state.Game;
 import Game_state.Region.Region;
 import Type.Direction;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -21,4 +22,5 @@ public interface Game {
     long getBudget();
     void beginTurn();
     void endTurn();
+    void sendPlan() throws IOException;
 }
