@@ -162,16 +162,13 @@ public class Game_im implements Game{
     public long nearby(Direction direction) {
         long distance = 0;
         int location = mockMove(direction, cityCrew.getLocation());
-        if(location != -1){
-            Region targetRegion = territory.get(location);
-            while (location != 1) {
-                distance++;
-                if (targetRegion.getOwner() != null && targetRegion.getOwner() != current_player)
-                    return ((distance) * 100 + (long) (Math.log10(targetRegion.getDeposit() + 1)) + 1);
-                location = mockMove(direction, targetRegion.getLocation());
-                if(location != -1)
-                    targetRegion = territory.get(location);
-            }
+        Region targetRegion;
+        while (location != 1) {
+            targetRegion = territory.get(location);
+            distance++;
+            if (targetRegion.getOwner() != null && targetRegion.getOwner() != current_player)
+                return ((distance) * 100 + (long) (Math.log10(targetRegion.getDeposit() + 1)) + 1);
+            location = mockMove(direction, targetRegion.getLocation());
         }
         return 0L;
     }
