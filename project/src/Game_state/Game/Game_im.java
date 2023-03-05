@@ -32,10 +32,6 @@ public class Game_im implements Game{
         return current_player.getBudget() >= actionCost;
     }
 
-    private Region CityCenter() {
-        return territory.get(current_player.getCityCenterLocation());
-    }
-
     @Override
     public Map<String, Long> getIdentifiers() {
         return current_player.getIdentifiers();
@@ -46,15 +42,18 @@ public class Game_im implements Game{
         if(checkBudget()) {
             current_player.updateBudget(-actionCost);
             if(current_player.getBudget() < money || money < 0) return;
-            Region targetRegion = territory.get(mockMove(direction, cityCrew.getLocation()));
-            if(targetRegion != null){
-                if(money < targetRegion.getDeposit()) {
-                    targetRegion.updateDeposit(-money);
-                }else{
-                    targetRegion.updateDeposit(-targetRegion.getDeposit());
-                    targetRegion.updateOwner(null);
+            int location = mockMove(direction, cityCrew.getLocation());
+            if(location != -1) {
+                Region targetRegion = territory.get(location);
+                if (targetRegion != null) {
+                    if (money < targetRegion.getDeposit()) {
+                        targetRegion.updateDeposit(-money);
+                    } else {
+                        targetRegion.updateDeposit(-targetRegion.getDeposit());
+                        targetRegion.updateOwner(null);
+                    }
+                    current_player.updateBudget(-money);
                 }
-                current_player.updateBudget(-money);
             }
         }
     }
@@ -120,7 +119,8 @@ public class Game_im implements Game{
                 else location += column + 1;
             }
         }
-        return location;
+        if(location < 0 || location >= territory.size()) return -1;
+        else return location;
     }
 
     @Override
@@ -128,7 +128,7 @@ public class Game_im implements Game{
         if(checkBudget()) {
             current_player.updateBudget(-actionCost);
             int location = mockMove(direction, cityCrew.getLocation());
-            if(location < 0 || location >= territory.size()) return false;
+            if(location == -1) return false;
             if(territory.get(location).getOwner() != null && territory.get(location).getOwner() != current_player) return false;
             cityCrew = territory.get(location);
             return true;
@@ -150,7 +150,7 @@ public class Game_im implements Game{
                 int cost = (5 * distance) + 10;
                 if (current_player.getBudget() >= cost) {
                     current_player.updateBudget(-cost);
-                    CityCenter().updateOwner(null);
+                    current_player.getCityCenter().updateOwner(null);
                     cityCrew.updateOwner(current_player);
                     current_player.updateCityCenter(cityCrew);
                 }
@@ -161,12 +161,17 @@ public class Game_im implements Game{
     @Override
     public long nearby(Direction direction) {
         long distance = 0;
-        Region targetRegion = territory.get(mockMove(direction, cityCrew.getLocation()));
-        while(targetRegion != null){
-            distance++;
-            if(targetRegion.getOwner() != null && targetRegion.getOwner()!= current_player)
-                return ((distance) * 100 + (long) (Math.log10(targetRegion.getDeposit() + 1)) +1);
-            targetRegion = territory.get(mockMove(direction, targetRegion.getLocation()));
+        int location = mockMove(direction, cityCrew.getLocation());
+        if(location != -1){
+            Region targetRegion = territory.get(location);
+            while (location != 1) {
+                distance++;
+                if (targetRegion.getOwner() != null && targetRegion.getOwner() != current_player)
+                    return ((distance) * 100 + (long) (Math.log10(targetRegion.getDeposit() + 1)) + 1);
+                location = mockMove(direction, targetRegion.getLocation());
+                if(location != -1)
+                    targetRegion = territory.get(location);
+            }
         }
         return 0L;
     }
