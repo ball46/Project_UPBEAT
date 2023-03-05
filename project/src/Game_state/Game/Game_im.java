@@ -186,7 +186,10 @@ public class Game_im implements Game{
                 Player player = territory.get((int) location).getOwner();
                 if(player != null && player != current_player)
                     return i + 1L + (distance * 10L);
-                suffuse[i] = territory.get(mockMove(Direction.values()[i], (int) location));
+                int mockLocation = mockMove(Direction.values()[i], (int) location);
+                if(mockLocation != -1)
+                    suffuse[i] = territory.get(mockLocation);
+                else suffuse[i] = null;
             }
             stop = true;
             for(Region region : suffuse) stop = stop && (region == null);
