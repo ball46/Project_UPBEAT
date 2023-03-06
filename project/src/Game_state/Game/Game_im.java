@@ -84,11 +84,17 @@ public class Game_im implements Game{
             current_player.updateBudget(-actionCost);
             int check;
             int count = 0;
-            for(int i = 0; i < 6; i++){
-                check = mockMove(Direction.values()[i], cityCrew.getLocation(), cityCrew.getCol());
-                if(territory.get(check).getOwner() != current_player) count++;
+            if(cityCrew.getOwner()!= current_player) {
+                for (int i = 0; i < 6; i++) {
+                    check = mockMove(Direction.values()[i], cityCrew.getLocation(), cityCrew.getCol());
+                    if (check == -1) {
+                        count++;
+                        continue;
+                    }
+                    if (territory.get(check).getOwner() != current_player) count++;
+                }
+                if (count == 6) return;
             }
-            if(count == 6) return;
             if(current_player.getBudget() < money || money <= 0) return;
             if(cityCrew.getOwner() != null && cityCrew.getOwner() != current_player) return;
             if(invested == max_dep) return;
@@ -110,20 +116,32 @@ public class Game_im implements Game{
             case Up -> location -= column;
             case Down -> location += column;
             case UpLeft -> {
-                if (col % 2 == 0) location -= (column + 1);
-                else location--;
+                if(col == 1) location = -1;
+                else {
+                    if (col % 2 == 0) location -= (column + 1);
+                    else location--;
+                }
             }
             case UpRight -> {
-                if (col % 2 == 0) location += 1 - column;
-                else location++;
+                if(col == column) location = -1;
+                else {
+                    if (col % 2 == 0) location += 1 - column;
+                    else location++;
+                }
             }
             case DownLeft -> {
-                if (col % 2 == 0) location--;
-                else location += column - 1;
+                if(col == 1) location = -1;
+                else {
+                    if (col % 2 == 0) location--;
+                    else location += column - 1;
+                }
             }
             case DownRight -> {
-                if (col % 2 == 0) location++;
-                else location += column + 1;
+                if(col == column) location = -1;
+                else {
+                    if (col % 2 == 0) location++;
+                    else location += column + 1;
+                }
             }
         }
         if(location < 0 || location >= territory.size()) return -1;
@@ -169,11 +187,11 @@ public class Game_im implements Game{
         long distance = 0;
         int location = mockMove(direction, cityCrew.getLocation(), cityCrew.getCol());
         Region targetRegion;
-        while (location != 1) {
+        while (location != -1) {
             targetRegion = territory.get(location);
             distance++;
             if (targetRegion.getOwner() != null && targetRegion.getOwner() != current_player)
-                return ((distance) * 100 + (long) (Math.log10(targetRegion.getDeposit() + 1)) + 1);
+                return ((distance) * 100 + (long) (Math.log10(targetRegion.getDeposit())) + 1);
             location = mockMove(direction, targetRegion.getLocation(), targetRegion.getCol());
         }
         return 0L;
