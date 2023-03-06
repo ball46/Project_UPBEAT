@@ -150,7 +150,6 @@ public class Game_im implements Game{
                 int cost = (5 * distance) + 10;
                 if (current_player.getBudget() >= cost) {
                     current_player.updateBudget(-cost);
-                    current_player.getCityCenter().updateOwner(null);
                     cityCrew.updateOwner(current_player);
                     current_player.updateCityCenter(cityCrew);
                 }
