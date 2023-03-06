@@ -217,7 +217,6 @@ public class Game_im implements Game{
         return current_player.getBudget();
     }
 
-    @Override
     public void endTurn() {
         if(current_player == this.player1){
             current_player = this.player2;
@@ -226,7 +225,6 @@ public class Game_im implements Game{
         }
     }
 
-    @Override
     public void beginTurn() {
         this.cityCrew = current_player.getCityCenter();
     }
