@@ -82,6 +82,13 @@ public class Game_im implements Game{
             long invested = cityCrew.getDeposit();
             long max_dep = ReadData.getMaxDeposit();
             current_player.updateBudget(-actionCost);
+            int check;
+            int count = 0;
+            for(int i = 0; i < 6; i++){
+                check = mockMove(Direction.values()[i], cityCrew.getLocation(), cityCrew.getCol());
+                if(territory.get(check).getOwner() != current_player) count++;
+            }
+            if(count == 6) return;
             if(current_player.getBudget() < money || money <= 0) return;
             if(cityCrew.getOwner() != null && cityCrew.getOwner() != current_player) return;
             if(invested == max_dep) return;
