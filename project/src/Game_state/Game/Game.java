@@ -20,7 +20,7 @@ public interface Game {
     Region getRegion(int location);
     Region getCityCrew();
     long getBudget();
-    void beginTurn();
-    void endTurn();
+    void beginTurn();//this method is implemented for use to test the game is real game is use in the sendPlan
+    void endTurn();//this method is same as beginTurn
     void sendPlan(String pathFile) throws IOException;
 }
