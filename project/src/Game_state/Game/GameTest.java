@@ -9,13 +9,12 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GameTest {
+final class GameTest {
     List<Region> territory = ReadData.createMap();
     Player p1 = ReadData.createPlayer("p1");
     Player p2 = ReadData.createPlayer("p2");
     Game game = new Game_im(p1, p2, territory);
     int col = (int) ReadData.getCols();
-    int row = (int) ReadData.getRows();
     @Test
     public void testMove( ){
         //test move player 1
@@ -97,6 +96,113 @@ class GameTest {
             if (locationCurrentPlayer % 2 == 0)
                 assertEquals(locationCurrentPlayer - (col + 1), game.getCityCrew().getLocation());
             else assertEquals(--locationCurrentPlayer, game.getCityCrew().getLocation());
+        }
+    }
+    @Test
+    public void testInvestInAnotherRegion(){
+        game.beginTurn();
+        long money = ReadData.getInitialBudget();
+        long investment = 100;
+        long action = 1;
+        if(game.move(Direction.Up)) {
+            game.invest(investment);
+            assertEquals(game.getCityCrew().getDeposit(), investment);
+            assertEquals(p1.getBudget(),  money - investment - 2*action);
+        } else if (game.move(Direction.Down)) {
+            p1.updateBudget(1); // because move up is false but player is cost it 1
+            game.invest(investment);
+            assertEquals(game.getCityCrew().getDeposit(), investment);
+            assertEquals(p1.getBudget(),  money - investment - 2*action);
+        }
+    }
+
+    @Test
+    public void testInvestInCityCenter(){
+        game.beginTurn();
+        long money = ReadData.getInitialBudget();
+        long investment = 100;
+        long action = 1;
+        game.invest(investment);
+        assertEquals(game.getCityCrew().getDeposit(), investment + 100);
+        assertEquals(p1.getBudget(),  money - investment - action);
+    }
+
+    @Test
+    public void testInvestZero(){
+        game.beginTurn();
+        long money = ReadData.getInitialBudget();
+        long investment = 0;
+        long action = 1;
+        if(game.move(Direction.Up)) {
+            game.invest(investment);
+            assertEquals(game.getCityCrew().getDeposit(), investment);
+            assertEquals(p1.getBudget(),  money - investment - 2*action);
+            assertNull(game.getCityCrew().getOwner());
+        } else if (game.move(Direction.Down)) {
+            p1.updateBudget(1); // because move up is false but player is cost it 1
+            game.invest(investment);
+            assertEquals(game.getCityCrew().getDeposit(), investment);
+            assertEquals(p1.getBudget(),  money - investment - 2*action);
+            assertNull(game.getCityCrew().getOwner());
+        }
+    }
+
+    @Test
+    public void testCollectInCityCenter(){
+        game.beginTurn();
+        long money = ReadData.getInitialBudget();
+        long collect = 100;
+        long action = 1;
+        game.collect(collect);
+        assertEquals(game.getCityCrew().getDeposit(), p1.getCityCenter().getDeposit());
+        assertEquals(p1.getBudget(),  money + collect - action);
+    }
+
+    @Test
+    public void testCollectZero(){
+        game.beginTurn();
+        long money = ReadData.getInitialBudget();
+        long investment = 100;
+        long collect = 0;
+        long action = 1;
+        if(game.move(Direction.Up)) {
+            game.invest(investment);
+            game.collect(collect);
+            assertEquals(game.getCityCrew().getDeposit(), investment);
+            assertEquals(p1.getBudget(),  money - investment - 3*action);
+        } else if (game.move(Direction.Down)) {
+            p1.updateBudget(1); // because move up is false but player is cost it 1
+            game.invest(investment);
+            game.collect(collect);
+            assertEquals(game.getCityCrew().getDeposit(), investment);
+            assertEquals(p1.getBudget(),  money - investment - 3*action);
+        }
+    }
+
+    @Test
+    public void testCollectInAnotherRegionAndCollectItToZero(){
+        game.beginTurn();
+        long money = ReadData.getInitialBudget();
+        long investment = 100;
+        long collect = 100;
+        long action = 1;
+        if(game.move(Direction.Up)) {
+            game.invest(investment);
+            assertEquals(game.getCityCrew().getDeposit(), investment);
+            assertEquals(game.getCityCrew().getOwner(), p1);
+            assertEquals(p1.getBudget(),  money - investment - 2*action);
+            game.collect(collect);
+            assertEquals(p1.getBudget(),  money - 3*action);
+            assertNull(game.getCityCrew().getOwner());
+        } else if (game.move(Direction.Down)) {
+            p1.updateBudget(1); // because move up is false but player is cost it 1
+            game.invest(investment);
+            assertEquals(game.getCityCrew().getDeposit(), investment);
+            assertEquals(game.getCityCrew().getOwner(), p1);
+            assertEquals(p1.getBudget(),  money - investment - 2*action);
+            game.collect(collect);
+            assertEquals(p1.getBudget(),  money - 3*action);
+            assertNull(game.getCityCrew().getOwner());
         }
     }
 
