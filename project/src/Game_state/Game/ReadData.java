@@ -66,8 +66,8 @@ public class ReadData {//This is default data
         territory = new ArrayList<>();
         for(int i = 0; i < rows * cols; i++){
             Region region = new Region_im(i);
-            int col = i % (int) cols != 0 ? i % (int) cols : (int) cols;
-            int row = i % (int) cols != 0 ? (i / (int) cols) + 1 : i / (int) cols;
+            int col = i % (int) cols != 0 ? (i % (int) cols) + 1 : 1;
+            int row = (i / (int) cols) + 1;
             region.AddAddress(row, col);
             territory.add(region);
         }
