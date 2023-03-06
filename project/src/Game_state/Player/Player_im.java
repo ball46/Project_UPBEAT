@@ -31,7 +31,7 @@ public class Player_im implements Player{
 
     @Override
     public void updateBudget(long money) {
-        this.budget += money;
+        this.budget = Math.max(0, this.budget + money);
     }
 
     @Override
