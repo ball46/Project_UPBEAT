@@ -21,9 +21,9 @@ public class Game_im implements Game{
     private final long actionCost = 1;
     private Player current_player;
     private Region cityCrew;
-    public Game_im(Player player1, Player p2, List<Region> territory) {
+    public Game_im(Player p1, Player p2, List<Region> territory) {
         this.territory = territory;
-        this.player1 = player1;
+        this.player1 = p1;
         this.player2 = p2;
         this.current_player = this.player1;
     }
