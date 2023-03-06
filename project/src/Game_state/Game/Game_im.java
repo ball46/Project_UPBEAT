@@ -42,7 +42,7 @@ public class Game_im implements Game{
         if(checkBudget()) {
             current_player.updateBudget(-actionCost);
             if(current_player.getBudget() < money || money < 0) return;
-            int location = mockMove(direction, cityCrew.getLocation());
+            int location = mockMove(direction, cityCrew.getLocation(), cityCrew.getCol());
             if(location != -1) {
                 Region targetRegion = territory.get(location);
                 if (targetRegion != null) {
@@ -97,25 +97,25 @@ public class Game_im implements Game{
         }
     }
 
-    public int mockMove(Direction direction, int location){
+    public int mockMove(Direction direction, int location , int col){
         int column = (int) ReadData.getCols();
         switch (direction) {
             case Up -> location -= column;
             case Down -> location += column;
             case UpLeft -> {
-                if (location % 2 == 0) location -= (column + 1);
+                if (col % 2 == 0) location -= (column + 1);
                 else location--;
             }
             case UpRight -> {
-                if (location % 2 == 0) location += 1 - column;
+                if (col % 2 == 0) location += 1 - column;
                 else location++;
             }
             case DownLeft -> {
-                if (location % 2 == 0) location--;
+                if (col % 2 == 0) location--;
                 else location += column - 1;
             }
             case DownRight -> {
-                if (location % 2 == 0) location++;
+                if (col % 2 == 0) location++;
                 else location += column + 1;
             }
         }
@@ -127,7 +127,7 @@ public class Game_im implements Game{
     public boolean move(Direction direction) {
         if(checkBudget()) {
             current_player.updateBudget(-actionCost);
-            int location = mockMove(direction, cityCrew.getLocation());
+            int location = mockMove(direction, cityCrew.getLocation(), cityCrew.getCol());
             if(location == -1) return false;
             if(territory.get(location).getOwner() != null && territory.get(location).getOwner() != current_player) return false;
             cityCrew = territory.get(location);
@@ -160,14 +160,14 @@ public class Game_im implements Game{
     @Override
     public long nearby(Direction direction) {
         long distance = 0;
-        int location = mockMove(direction, cityCrew.getLocation());
+        int location = mockMove(direction, cityCrew.getLocation(), cityCrew.getCol());
         Region targetRegion;
         while (location != 1) {
             targetRegion = territory.get(location);
             distance++;
             if (targetRegion.getOwner() != null && targetRegion.getOwner() != current_player)
                 return ((distance) * 100 + (long) (Math.log10(targetRegion.getDeposit() + 1)) + 1);
-            location = mockMove(direction, targetRegion.getLocation());
+            location = mockMove(direction, targetRegion.getLocation(), targetRegion.getCol());
         }
         return 0L;
     }
@@ -185,7 +185,7 @@ public class Game_im implements Game{
                 Player player = territory.get((int) location).getOwner();
                 if(player != null && player != current_player)
                     return i + 1L + (distance * 10L);
-                int mockLocation = mockMove(Direction.values()[i], (int) location);
+                int mockLocation = mockMove(Direction.values()[i], (int) location, suffuse[i].getCol());
                 if(mockLocation != -1)
                     suffuse[i] = territory.get(mockLocation);
                 else suffuse[i] = null;
