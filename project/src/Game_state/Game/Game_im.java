@@ -83,6 +83,7 @@ public class Game_im implements Game{
             long max_dep = ReadData.getMaxDeposit();
             current_player.updateBudget(-actionCost);
             if(current_player.getBudget() < money) return;
+            if(money <= 0) return;
             if(cityCrew.getOwner() != null && cityCrew.getOwner() != current_player) return;
             if(invested == max_dep) return;
             if(invested + money > max_dep){
