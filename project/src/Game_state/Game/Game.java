@@ -9,11 +9,11 @@ import java.util.Map;
 
 public interface Game {
     Map<String, Long> getIdentifiers();
-    void attack(Direction direction, long money);
+    boolean attack(Direction direction, long money);
     boolean collect(long money);
-    void invest(long money);
+    boolean invest(long money);
     boolean move(Direction direction);
-    void relocate();
+    boolean relocate();
     long nearby(Direction direction);
     long opponent();
     List<Region> getTerritory();

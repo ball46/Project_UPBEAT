@@ -41,10 +41,10 @@ public class Game_im implements Game{
     }
 
     @Override
-    public void attack(Direction direction, long money) {
+    public boolean attack(Direction direction, long money) {
         if(checkBudget()) {
             current_player.updateBudget(-actionCost);
-            if(current_player.getBudget() < money || money < 0) return;
+            if(current_player.getBudget() < money || money < 0) return false;
             int location = mockMove(direction, cityCrew.getLocation(), cityCrew.getCol());
             if(location != -1) {
                 Region targetRegion = territory.get(location);
@@ -56,9 +56,11 @@ public class Game_im implements Game{
                         targetRegion.updateOwner(null);
                     }
                     current_player.updateBudget(-money);
+                    return true;
                 }
             }
         }
+        return false;
     }
 
     @Override
@@ -80,7 +82,7 @@ public class Game_im implements Game{
     }
 
     @Override
-    public void invest(long money) {
+    public boolean invest(long money) {
         if(checkBudget()) {
             long invested = cityCrew.getDeposit();
             long max_dep = ReadData.getMaxDeposit();
@@ -96,11 +98,11 @@ public class Game_im implements Game{
                     }
                     if (territory.get(check).getOwner() != current_player) count++;
                 }
-                if (count == 6) return;
+                if (count == 6) return false;
             }
-            if(current_player.getBudget() < money || money <= 0) return;
-            if(cityCrew.getOwner() != null && cityCrew.getOwner() != current_player) return;
-            if(invested == max_dep) return;
+            if(current_player.getBudget() < money || money <= 0) return false;
+            if(cityCrew.getOwner() != null && cityCrew.getOwner() != current_player) return false;
+            if(invested == max_dep) return false;
             if(invested + money > max_dep){
                 long invest = max_dep - invested;
                 cityCrew.updateDeposit(invest);
@@ -110,7 +112,9 @@ public class Game_im implements Game{
                 current_player.updateBudget(-money);
             }
             cityCrew.updateOwner(current_player);
+            return true;
         }
+        return false;
     }
 
     public int mockMove(Direction direction, int location , int col){
@@ -165,7 +169,7 @@ public class Game_im implements Game{
     }
 
     @Override
-    public void relocate() {
+    public boolean relocate() {
         if(checkBudget()){
             current_player.updateBudget(-actionCost);
             if(cityCrew.getOwner() == current_player) {
@@ -181,8 +185,10 @@ public class Game_im implements Game{
                     cityCrew.updateOwner(current_player);
                     current_player.updateCityCenter(cityCrew);
                 }
+                return true;
             }
         }
+        return false;
     }
 
     @Override
@@ -250,8 +256,8 @@ public class Game_im implements Game{
             current_player = this.player2;
         }else{
             current_player = this.player1;
-            turn++;
             CalculateInterest();
+            turn++;
         }
     }
 
