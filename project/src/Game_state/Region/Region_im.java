@@ -1,11 +1,13 @@
 package Game_state.Region;
 
+import Game_state.Game.ReadData;
 import Game_state.Player.Player;
 
 public class Region_im implements Region {
     private final int location;
     private Player owner;
     private long deposit;
+    private final long max_deposit = ReadData.getMaxDeposit();
     private  int row, col;
     public Region_im(int location) {
         this.location = location;
@@ -29,8 +31,8 @@ public class Region_im implements Region {
 
     @Override
     public void updateDeposit(long money) {
-        this.deposit += money;
-        if(this.deposit < 0) this.deposit = 0;
+        this.deposit = Math.max(0, this.deposit + money);
+        this.deposit = Math.min(this.deposit, max_deposit);
     }
 
     @Override

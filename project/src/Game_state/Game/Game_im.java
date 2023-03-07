@@ -21,12 +21,14 @@ public class Game_im implements Game{
     private final long actionCost = 1;
     private Player current_player;
     private Region cityCrew;
+    private int turn;
 
     public Game_im(Player p1, Player p2, List<Region> territory) {
         this.territory = territory;
         this.player1 = p1;
         this.player2 = p2;
         this.current_player = this.player1;
+        this.turn = 1;
     }
 
     private boolean checkBudget() {
@@ -248,6 +250,27 @@ public class Game_im implements Game{
             current_player = this.player2;
         }else{
             current_player = this.player1;
+            turn++;
+            CalculateInterest();
+        }
+    }
+
+    private void CalculateInterest() {
+        //the interest for the region in the current turn is d*r/100
+        // d is the current deposit of a region
+        // r is the interest rate percentage
+        //the interest rate percentage r to be used is b * log10 d * ln t
+        // b is the base interest rate percentage as specified in the configuration file
+        // d is the current deposit of a region
+        // t is the current turn count of a player
+        long b = ReadData.getInterestRatePercentage();
+        long max = ReadData.getMaxDeposit();
+        for(Region region: territory) {
+            long d = region.getDeposit();
+            if(d == max || d == 0) continue;
+            double r = b*Math.log10(d)*Math.log(turn);
+            double i = d*r/100;
+            region.updateDeposit(Math.round(i));
         }
     }
 
