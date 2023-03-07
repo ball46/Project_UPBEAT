@@ -14,18 +14,31 @@ import java.util.Map;
 import java.util.Random;
 
 public class ReadData {//This is default data
+
     private static long rows = 9;
+
     private static long cols = 9;
+
     private static long initialPlanMinutes = 5;//number of minutes to initial construction plan
+
     private static long initialPlanSeconds = 0;
+
     private static long initialBudget = 10000;//is my money
-    private static long initialCenterDeposit = 100;//is my money in city center
+
+    private static long initialCenterDeposit = 100;//is my money in cityCenter
+
     private static long planRevisionMinutes = 30;//number of minutes to revisions construction plan
+
     private static long planRevisionSeconds = 0;
+
     private static long revisionCost = 100;//cost to revise plan
+
     private static long maxDeposit = 1000000;//maximum deposit for each region
+
     private static long interestRatePercentage = 5;
+
     private static List<Region> territory;
+
     public static void getDataFile(String locate){
         Gson gson = new Gson();
         Path path = Path.of(locate);
@@ -62,6 +75,13 @@ public class ReadData {//This is default data
         }
     }
 
+    public static Game cretateGame(String p1, String p2){
+        List<Region> territory = createMap();
+        Player player1 = createPlayer(p1);
+        Player player2 = createPlayer(p2);
+        return new Game_im(player1, player2, territory);
+    }
+
     public static List<Region> createMap(){
         territory = new ArrayList<>();
         for(int i = 0; i < rows * cols; i++){
@@ -94,9 +114,13 @@ public class ReadData {//This is default data
     }
 
     public static long getRows() {return rows;}
+
     public static long getCols() {return cols;}
+
     public static long getInitialBudget() {return initialBudget;}
+
     public static long getMaxDeposit() {return maxDeposit;}
+
     public static long getInterestRatePercentage() {return interestRatePercentage;}
 
     public static long getInitialDeposit() { return initialCenterDeposit;}
