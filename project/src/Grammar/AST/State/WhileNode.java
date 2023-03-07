@@ -12,7 +12,7 @@ public class WhileNode extends IfNode {
     @Override
     public Node.StateNode evaluate(Game game) {
         if(condition.eval(game) > 0){
-            if(count >= 3000) return nextState;
+            if(count >= 10000) return nextState;
             Node.StateNode last = getLastState(trueBranch);
             if(last!= this) last.nextState = this;
             count++;
