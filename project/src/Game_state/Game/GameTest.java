@@ -186,6 +186,7 @@ final class GameTest {
         if(game.collect(collect)) {
             assertEquals(game.getCityCrew().getDeposit(), p1.getCityCenter().getDeposit());
             assertEquals(p1.getBudget(), money + collect - action);
+            assertNull(p1.getCityCenter().getOwner());
         }
     }
 
