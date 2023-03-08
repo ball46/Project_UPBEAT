@@ -8,14 +8,15 @@ import Type.Direction;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 public class Parser_im implements Parser {
     Tokenizer tkz;
-    List<String> Command = Arrays.asList("done", "relocate", "move", "invest", "collect", "shoot");
-    List<String> SpecialVariables = Arrays.asList("if", "while", "done", "relocate", "move", "invest", "shoot"
+    HashSet<String> Command = new HashSet<>(Arrays.asList("done", "relocate", "move", "invest", "collect", "shoot"));
+    HashSet<String> SpecialVariables = new HashSet<>(Arrays.asList("if", "while", "done", "relocate", "move", "invest", "shoot"
             , "up", "down", "upleft", "upright", "downleft", "downright", "if", "while", "then", "else", "opponent", "nearby",
-            "rows", "cols", "currow", "curcol", "budget", "deposit", "int", "maxdeposit", "random");
+            "rows", "cols", "currow", "curcol", "budget", "deposit", "int", "maxdeposit", "random"));
 
     public Parser_im(Tokenizer tkz) {
         if(!tkz.hasNextToken()) throw new ParserError.CommandIsNoInput();
