@@ -19,6 +19,14 @@ public interface Game {
     List<Region> getTerritory();
     Region getRegion(int location);
     Region getCityCrew();
+    long getRow();
+    long getCol();
+    long getCityCrewRow();
+    long getCityCrewCol();
     long getBudget();
+    long getDeposit();
+    long getInterest();
+    long getMaxDeposit();
+    long getRandom();
     void sendPlan(String pathFile) throws IOException;
 }

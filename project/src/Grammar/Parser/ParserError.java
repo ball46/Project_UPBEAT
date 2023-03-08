@@ -35,8 +35,8 @@ public class ParserError extends RuntimeException{
         }
     }
 
-    public static class CommandHasSpecialVariable extends ParserError {
-        public CommandHasSpecialVariable(String identifier) {
+    public static class CommandHasNotUseVariable extends ParserError {
+        public CommandHasNotUseVariable(String identifier) {
             super(identifier + " is a special variable");
         }
     }

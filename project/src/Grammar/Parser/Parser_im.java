@@ -14,7 +14,9 @@ import java.util.List;
 public class Parser_im implements Parser {
     Tokenizer tkz;
     HashSet<String> Command = new HashSet<>(Arrays.asList("done", "relocate", "move", "invest", "collect", "shoot"));
-    HashSet<String> SpecialVariables = new HashSet<>(Arrays.asList("if", "while", "done", "relocate", "move", "invest", "shoot"
+    HashSet<String> SpecialVariables = new HashSet<>(Arrays.asList("rows", "cols", "currow", "curcol", "budget", "deposit",
+            "int", "maxdeposit", "random"));
+    HashSet<String> NotUse = new HashSet<>(Arrays.asList("if", "while", "done", "relocate", "move", "invest", "shoot"
             , "up", "down", "upleft", "upright", "downleft", "downright", "if", "while", "then", "else", "opponent", "nearby",
             "rows", "cols", "currow", "curcol", "budget", "deposit", "int", "maxdeposit", "random"));
 
@@ -92,8 +94,8 @@ public class Parser_im implements Parser {
 
     private Node.StateNode parseAssignmentStatement() {
         String identifier = tkz.consume();
-        if(SpecialVariables.contains(identifier)){
-            throw new ParserError.CommandHasSpecialVariable(identifier);
+        if(NotUse.contains(identifier)){
+            throw new ParserError.CommandHasNotUseVariable(identifier);
         }else {
             if (tkz.peek("=")) tkz.consume();
             else throw new ParserError.CommandNotFound("'='");
@@ -184,7 +186,9 @@ public class Parser_im implements Parser {
             return new NumberNode( Long.parseLong(tkz.consume()) );
         }else if(tkz.peek("opponent") || tkz.peek("nearby")){
             return parseInfoExpression();
-        }else if(tkz.peek("(")){
+        }else if(SpecialVariables.contains(tkz.peek())){
+            return new SpecialVariablesNode(tkz.consume());
+        } else if(tkz.peek("(")){
             tkz.consume("(");
             Node.ExprNode expr = parseExpression();
             tkz.consume(")");

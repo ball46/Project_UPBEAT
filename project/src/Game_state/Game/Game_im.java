@@ -14,6 +14,7 @@ import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class Game_im implements Game{
     private final Player player1, player2;
@@ -247,8 +248,50 @@ public class Game_im implements Game{
     }
 
     @Override
+    public long getRow() {
+        return ReadData.getRows();
+    }
+
+    @Override
+    public long getCol() {
+        return ReadData.getCols();
+    }
+
+    @Override
+    public long getCityCrewRow() {
+        return cityCrew.getRow();
+    }
+
+    @Override
+    public long getCityCrewCol() {
+        return cityCrew.getCol();
+    }
+
+    @Override
     public long getBudget() {
         return current_player.getBudget();
+    }
+
+    @Override
+    public long getDeposit() {
+        return cityCrew.getDeposit();
+    }
+
+    @Override
+    public long getInterest() {
+        long d = cityCrew.getDeposit();
+        return (long) CalRate(d);
+    }
+
+    @Override
+    public long getMaxDeposit() {
+        return ReadData.getMaxDeposit();
+    }
+
+    @Override
+    public long getRandom() {
+        Random random = new Random();
+        return random.nextInt(1000);
     }
 
     public void endTurn() {
@@ -269,15 +312,19 @@ public class Game_im implements Game{
         // b is the base interest rate percentage as specified in the configuration file
         // d is the current deposit of a region
         // t is the current turn count of a player
-        long b = ReadData.getInterestRatePercentage();
         long max = ReadData.getMaxDeposit();
         for(Region region: territory) {
             long d = region.getDeposit();
             if(d == max || d == 0) continue;
-            double r = b*Math.log10(d)*Math.log(turn);
+            double r = CalRate(d);
             double i = d*r/100;
             region.updateDeposit(Math.round(i));
         }
+    }
+
+    private double CalRate(long d){
+        long b = ReadData.getInterestRatePercentage();
+        return b*Math.log10(d)*Math.log(turn);
     }
 
     public void beginTurn() {
