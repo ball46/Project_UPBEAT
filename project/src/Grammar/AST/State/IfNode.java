@@ -14,13 +14,13 @@ public class IfNode extends Node.StateNode {
         this.falseBranch = falseBranch;
     }
     @Override
-    public Node.StateNode evaluate(Game game) {
+    public boolean evaluate(Game game) {
         trueBranch.nextState = nextState;
         falseBranch.nextState = nextState;
         if(condition.eval(game) > 0){
-            return trueBranch;
+            return trueBranch.evaluate(game);
         }else {
-            return falseBranch;
+            return falseBranch.evaluate(game);
         }
     }
 }

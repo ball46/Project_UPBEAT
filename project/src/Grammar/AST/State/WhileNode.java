@@ -1,7 +1,6 @@
 package Grammar.AST.State;
 
 import Game_state.Game.Game;
-import Grammar.AST.Node;
 
 public class WhileNode extends IfNode {
     private long count = 0;
@@ -10,22 +9,14 @@ public class WhileNode extends IfNode {
         if(trueBranch == null) trueBranch = this;
     }
     @Override
-    public Node.StateNode evaluate(Game game) {
-        if(condition.eval(game) > 0){
-            if(count >= 10000) return nextState;
-            Node.StateNode last = getLastState(trueBranch);
-            if(last!= this) last.nextState = this;
+    public boolean evaluate(Game game) {
+        if(condition.eval(game) > 0 && count < 10000){
             count++;
-            return trueBranch;
+            if(!trueBranch.evaluate(game)){
+                return false;
+            }
+            return evaluate(game);
         }
-        return nextState;
-    }
-
-    private Node.StateNode getLastState(StateNode state) {
-        while(state != this && state != null){
-            if(state.nextState == this || state.nextState == null) return state;
-            state = state.nextState;
-        }
-        return this;
+        return true;
     }
 }

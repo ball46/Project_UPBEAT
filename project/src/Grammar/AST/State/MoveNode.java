@@ -11,8 +11,7 @@ public class MoveNode extends Node.StateNode {
         this.direction = direction;
     }
     @Override
-    public StateNode evaluate(Game game) {
-        game.move(direction);
-        return nextState;
+    public boolean evaluate(Game game) {
+        return game.move(direction);
     }
 }

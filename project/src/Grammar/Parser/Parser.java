@@ -2,6 +2,8 @@ package Grammar.Parser;
 
 import Grammar.AST.Node;
 
+import java.util.List;
+
 public interface Parser {
-    Node.StateNode parse();
+    List<Node.StateNode> parse();
 }

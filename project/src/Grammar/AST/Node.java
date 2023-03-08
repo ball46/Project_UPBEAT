@@ -5,8 +5,8 @@ import Game_state.Game.Game;
 public class Node {
     public static class StateNode extends Node{
         public StateNode nextState;
-        public StateNode evaluate(Game game) {
-            return new StateNode();
+        public boolean evaluate(Game game) {
+            return false;
         }
     }
 

@@ -9,8 +9,7 @@ public class InvestNode extends Node.StateNode {
         this.expr = expr;
     }
     @Override
-    public StateNode evaluate(Game game) {
-        game.invest(expr.eval(game));
-        return nextState;
+    public boolean evaluate(Game game) {
+        return game.invest(expr.eval(game));
     }
 }

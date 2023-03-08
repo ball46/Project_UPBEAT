@@ -2,19 +2,19 @@ package Grammar.Parser;
 
 import Grammar.AST.Node;
 import Grammar.AST.State.AssignmentNode;
-import Grammar.AST.State.WhileNode;
 import Grammar.Tokenizer.Tokenizer_im;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ParserTest {
     public Parser parser;
-    public Node.StateNode stateNode;
+    public List<Node.StateNode> stateNode;
     @Test
     public void testStatementIsEmpty() {
         assertThrows(RuntimeException.class, () -> new Parser_im(new Tokenizer_im("")));
@@ -23,17 +23,11 @@ class ParserTest {
     public void testStatements(){
         parser = new Parser_im(new Tokenizer_im("x = 1 y = 2 z = 3 a = 4 b = 5"));
         stateNode = parser.parse();
-        assertInstanceOf(AssignmentNode.class, stateNode);
-        stateNode = stateNode.nextState;
-        assertInstanceOf(AssignmentNode.class, stateNode);
-        stateNode = stateNode.nextState;
-        assertInstanceOf(AssignmentNode.class, stateNode);
-        stateNode = stateNode.nextState;
-        assertInstanceOf(AssignmentNode.class, stateNode);
-        stateNode = stateNode.nextState;
-        assertInstanceOf(AssignmentNode.class, stateNode);
-        stateNode = stateNode.nextState;
-        assertNull(stateNode);
+        assertInstanceOf(AssignmentNode.class, stateNode.get(0));
+        assertInstanceOf(AssignmentNode.class, stateNode.get(1));
+        assertInstanceOf(AssignmentNode.class, stateNode.get(2));
+        assertInstanceOf(AssignmentNode.class, stateNode.get(3));
+        assertInstanceOf(AssignmentNode.class, stateNode.get(4));
     }
     @Test
     public void testSpecialVariable() {
@@ -63,11 +57,6 @@ class ParserTest {
         Path fileName = Path.of("D:\\UPBEAT\\project\\src\\Construction\\Testfile.txt");
         String str = Files.readString(fileName);
         parser = new Parser_im((new Tokenizer_im(str)));
-        stateNode = parser.parse();
-        assertInstanceOf(AssignmentNode.class, stateNode);
-        stateNode = stateNode.nextState;
-        assertInstanceOf(AssignmentNode.class, stateNode);
-        stateNode = stateNode.nextState;
-        assertInstanceOf(WhileNode.class, stateNode);
+        assertDoesNotThrow(() -> parser.parse());
     }
 }

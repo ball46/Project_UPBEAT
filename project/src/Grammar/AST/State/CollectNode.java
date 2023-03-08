@@ -10,8 +10,7 @@ public class CollectNode extends Node.StateNode {
         this.expr = expr;
     }
     @Override
-    public StateNode evaluate(Game game) {
-        game.collect(expr.eval(game));
-        return nextState;
+    public boolean evaluate(Game game) {
+        return game.collect(expr.eval(game));
     }
 }

@@ -12,8 +12,7 @@ public class AttackNode extends Node.StateNode {
         this.expr = exprNode;
     }
     @Override
-    public StateNode evaluate(Game game) {
-        game.attack(direction, expr.eval(game));
-        return nextState;
+    public boolean evaluate(Game game) {
+        return game.attack(direction, expr.eval(game));
     }
 }

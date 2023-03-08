@@ -14,17 +14,11 @@ public class AssignmentNode extends Node.StateNode {
         this.identifier = identifier;
         this.expression = expression;
     }
-    public String getIdentifier() {
-        return identifier;
-    }
-    public Node.ExprNode getExpression() {
-        return expression;
-    }
     @Override
-    public Node.StateNode evaluate(Game game) {
+    public boolean evaluate(Game game) {
         Map<String, Long> mem = game.getIdentifiers();
         mem.put(identifier, expression.eval(game));
-        return nextState;
+        return true;
     }
     public Node.StateNode evaluate(Map<String, Long> mem) {
         if(!(expression instanceof NumberNode)) throw new RuntimeException("Invalid expression");

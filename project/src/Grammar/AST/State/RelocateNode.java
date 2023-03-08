@@ -5,8 +5,8 @@ import Grammar.AST.Node;
 
 public class RelocateNode extends Node.StateNode {
     @Override
-    public StateNode evaluate(Game game) {
+    public boolean evaluate(Game game) {
         game.relocate();
-        return null;
+        return true;
     }
 }

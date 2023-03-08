@@ -5,28 +5,12 @@ import Grammar.AST.State.*;
 import Grammar.AST.Expr.*;
 import Grammar.Tokenizer.Tokenizer;
 import Type.Direction;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Parser_im implements Parser {/*
-    Plan → Statement+
-    Statement → Command | BlockStatement | IfStatement | WhileStatement
-    Command → AssignmentStatement | ActionCommand
-    AssignmentStatement → <identifier> = Expression
-    ActionCommand → done | relocate | MoveCommand | RegionCommand | AttackCommand
-    MoveCommand → move Direction
-    RegionCommand → invest Expression | collect Expression
-    AttackCommand → shoot Direction Expression
-    Direction → up | down | upleft | upright | downleft | downright
-    BlockStatement → { Statement* }
-    IfStatement → if ( Expression ) then Statement else Statement
-    WhileStatement → while ( Expression ) Statement
-    Expression → Expression + Term | Expression - Term | Term
-    Term → Term * Factor | Term / Factor | Term % Factor | Factor
-    Factor → Power ^ Factor | Power
-    Power → <number> | <identifier> | ( Expression ) | InfoExpression
-    InfoExpression → opponent | nearby Direction
-*/
+public class Parser_im implements Parser {
     Tokenizer tkz;
     List<String> Command = Arrays.asList("done", "relocate", "move", "invest", "collect", "shoot");
     List<String> SpecialVariables = Arrays.asList("if", "while", "done", "relocate", "move", "invest", "shoot"
@@ -38,27 +22,23 @@ public class Parser_im implements Parser {/*
         this.tkz = tkz;
     }
     @Override
-    public Node.StateNode parse() {
-        Node.StateNode nodes = parsePlan();
+    public List<Node.StateNode> parse() {
+        List<Node.StateNode> nodes = parsePlan();
         if(tkz.hasNextToken()) throw new ParserError.CommandHasLeftoverToken(tkz.peek());
         return nodes;
     }
 
-    private Node.StateNode parsePlan() {
-        Node.StateNode current = parseStatement();
-        current.nextState = parseStatements();
-        return current;
+    private List<Node.StateNode> parsePlan() {
+        List<Node.StateNode> plan = new ArrayList<>();
+        plan.add(parseStatement());
+        parseStatements(plan);
+        return plan;
     }
 
-    private Node.StateNode parseStatements() {
-        Node.StateNode node = null, subnode = null;
+    private void parseStatements(List<Node.StateNode> list) {
         while(tkz.hasNextToken() && !tkz.peek("}")) {
-            Node.StateNode cur = parseStatement();
-            if(node == null) node = cur;
-            if(subnode != null) subnode.nextState = cur;
-            subnode = cur;
+            list.add(parseStatement());
         }
-        return node;
     }
 
     private Node.StateNode parseStatement() {
@@ -74,10 +54,11 @@ public class Parser_im implements Parser {/*
     }
     
     private Node.StateNode parseBlockStatement() {
+        List<Node.StateNode> block = new ArrayList<>();
         tkz.consume("{");
-        Node.StateNode blockNodes = parseStatements();
+        parseStatements(block);
         tkz.consume("}");
-        return blockNodes;
+        return new BlockNode(block);
     }
 
     private Node.StateNode parseIfStatement() {

@@ -289,10 +289,10 @@ public class Game_im implements Game{
         Path fileName = Path.of(pathFile);
         String constructionPlan = Files.readString(fileName);
         Parser parser = new Parser_im(new Tokenizer_im(constructionPlan));
-        Node.StateNode node = parser.parse();
+        List<Node.StateNode> nodes = parser.parse();
         beginTurn();
-        while(node!= null){
-            node = node.evaluate(this);
+        for(Node.StateNode node : nodes){
+            node.evaluate(this);
         }
         endTurn();
     }
