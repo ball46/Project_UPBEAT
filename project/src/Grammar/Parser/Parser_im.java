@@ -173,7 +173,7 @@ public class Parser_im implements Parser {
 
     private Node.ExprNode parseFactor() {
         Node.ExprNode left = parsePower();
-        while (tkz.peek("^")) {
+        if (tkz.peek("^")) {
             String op = tkz.consume();
             Node.ExprNode right = parseFactor();
             left = new BinaryOperationNode( left, op, right );
