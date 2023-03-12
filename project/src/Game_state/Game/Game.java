@@ -1,9 +1,9 @@
 package Game_state.Game;
 
+import Game_state.Player.Player;
 import Game_state.Region.Region;
 import Type.Direction;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -28,5 +28,8 @@ public interface Game {
     long getInterest();
     long getMaxDeposit();
     long getRandom();
-    void sendPlan(String pathFile) throws IOException;
+    Player getCurrentPlayer();
+    Player getPlayer1();
+    Player getPlayer2();
+    void sendPlan(String plan);
 }

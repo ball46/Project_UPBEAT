@@ -8,9 +8,6 @@ import Grammar.Parser.Parser_im;
 import Grammar.Tokenizer.Tokenizer_im;
 import Type.Direction;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -294,6 +291,21 @@ public class Game_im implements Game{
         return random.nextInt(1000);
     }
 
+    @Override
+    public Player getCurrentPlayer() {
+        return current_player;
+    }
+
+    @Override
+    public Player getPlayer1() {
+        return player1;
+    }
+
+    @Override
+    public Player getPlayer2() {
+        return player2;
+    }
+
     public void endTurn() {
         if(current_player == this.player1){
             current_player = this.player2;
@@ -332,10 +344,8 @@ public class Game_im implements Game{
     }
 
     @Override
-    public void sendPlan(String pathFile) throws IOException {
-        Path fileName = Path.of(pathFile);
-        String constructionPlan = Files.readString(fileName);
-        Parser parser = new Parser_im(new Tokenizer_im(constructionPlan));
+    public void sendPlan(String plan){
+        Parser parser = new Parser_im(new Tokenizer_im(plan));
         List<Node.StateNode> nodes = parser.parse();
         beginTurn();
         for(Node.StateNode node : nodes){
