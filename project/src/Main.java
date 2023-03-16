@@ -3,7 +3,6 @@ import Grammar.AST.Node;
 import Grammar.Parser.Parser;
 import Grammar.Parser.Parser_im;
 import Grammar.Tokenizer.Tokenizer_im;
-import com.google.gson.Gson;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,7 +20,7 @@ public class Main {
 //        String str = Files.readString(fileName);
 //        System.out.println(str);
 //        Parser test = new Parser_im(new Tokenizer_im(str));
-        Gson gson = new Gson();
+/*        Gson gson = new Gson();
         Path path = Path.of("D:\\UPBEAT\\project\\src\\Data\\ConfigFile.json");
         try(BufferedReader reader = Files.newBufferedReader(path)) {
             Map data = gson.fromJson(reader, Map.class);
@@ -32,7 +31,7 @@ public class Main {
             }
         }catch (Exception e){
             throw new IOException(e);
-        }
+        }*/
 
     }
 }

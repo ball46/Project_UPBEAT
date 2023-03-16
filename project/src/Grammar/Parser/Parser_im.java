@@ -38,7 +38,7 @@ public class Parser_im implements Parser {
         return plan;
     }
 
-    private void parseStatements(List<Node.StateNode> list) {
+    protected void parseStatements(List<Node.StateNode> list) {
         while(tkz.hasNextToken() && !tkz.peek("}")) {
             list.add(parseStatement());
         }

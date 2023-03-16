@@ -2,16 +2,14 @@ package Game_state.Game;
 
 import Game_state.Player.*;
 import Game_state.Region.*;
-import com.google.gson.Gson;
+import Grammar.AST.Node;
+import Grammar.AST.State.AssignmentNode;
+import Grammar.Parser.ParseConfig;
+import Grammar.Parser.Parser;
+import Grammar.Parser.ParserError;
+import Grammar.Tokenizer.Tokenizer_im;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class ReadData {//This is default data
 
@@ -39,40 +37,28 @@ public class ReadData {//This is default data
 
     private static List<Region> territory;
 
-    public static void getDataFile(String locate){
-        Gson gson = new Gson();
-        Path path = Path.of(locate);
-        try(BufferedReader reader = Files.newBufferedReader(path)){
-            Map data = gson.fromJson(reader, Map.class);
-            for(Object key : data.keySet()){
-                String swt = (String) key;
-                long value = (long) Double.parseDouble(data.get(key).toString());
-                switch (swt){
-                    case "row" -> rows = value;
-                    case "col" -> cols = value;
-                    case "init_plan_min" -> initialPlanMinutes = value;
-                    case "init_plan_sec" -> {
-                        if(initialPlanSeconds < 0 || initialPlanSeconds > 59)
-                            throw new GameError.ConfigurationError("Seconds must be between 0 and 59");
-                        initialPlanSeconds = value;
-                    }
-                    case "init_budget" -> initialBudget = value;
-                    case "init_center_dep" -> initialCenterDeposit = value;
-                    case "plan_rev_min" -> planRevisionMinutes = value;
-                    case "plan_rev_sec" -> {
-                        if(planRevisionSeconds < 0 || planRevisionSeconds > 59)
-                            throw new GameError.ConfigurationError("Seconds must be between 0 and 59");
-                        planRevisionSeconds = value;
-                    }
-                    case "rev_cost" -> revisionCost = value;
-                    case "max_dep" -> maxDeposit = value;
-                    case "interest_pct" -> interestRatePercentage = value;
-                    default -> throw new GameError.ConfigurationError("Wrong key");
-                }
-            }
-        } catch (IOException e) {
-            throw new GameError.DoNotSendFile(e.getMessage());
+    public static void getDataFile(String config){
+        Parser parser = new ParseConfig(new Tokenizer_im(config));
+        List<Node.StateNode> nodes = parser.parse();
+        Map<String, Long> map = new HashMap<>();
+        for(Node.StateNode node : nodes){
+            if(!(node instanceof AssignmentNode))
+                throw new ParserError.CommandNotFound(node.toString());
+            ((AssignmentNode) node).evaluate(map);
         }
+        rows = map.getOrDefault("row", rows);
+        cols = map.getOrDefault("col", cols);
+        initialPlanMinutes = map.getOrDefault("init_plan_min", initialPlanMinutes);
+        initialPlanSeconds = map.getOrDefault("init_plan_sec", initialPlanSeconds);
+        initialBudget = map.getOrDefault("init_budget", initialBudget);
+        initialCenterDeposit = map.getOrDefault("init_center_dep", initialCenterDeposit);
+        planRevisionMinutes = map.getOrDefault("plan_rev_min", planRevisionMinutes);
+        planRevisionSeconds = map.getOrDefault("plan_rev_sec", planRevisionSeconds);
+        revisionCost = map.getOrDefault("rev_cost", revisionCost);
+        maxDeposit = map.getOrDefault("max_dep", maxDeposit);
+        interestRatePercentage = map.getOrDefault("interest_pct", interestRatePercentage);
+        if(initialPlanSeconds >= 60) throw new GameError.ConfigurationError("Seconds is between 0 - 59");
+        if(planRevisionSeconds >= 60) throw new GameError.ConfigurationError("Seconds is between 0 - 59");
     }
 
     public static Game cretateGame(String p1, String p2){

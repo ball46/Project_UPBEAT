@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ce76e8a8-8d7f-4736-a41d-abb9201069c2" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../Send/13-3-23/git-log-progress.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/gradle_wrapper.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules/demo.main.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Construction/Testfile.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Data/ConfigFile.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Data/TestMap.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Data/TestPlayer.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Data/TestRead.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Game_state/Game/Game.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Game_state/Game/GameError$ConfigurationError.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Game_state/Game/GameError$DoNotSendFile.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Game_state/Game/GameError$MoneyIsLessThanZero.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Game_state/Game/GameError.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Game_state/Game/GameTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Game_state/Game/Game_im$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Game_state/Game/Game_im.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Game_state/Game/ReadData.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Game_state/Game/ReadDataTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Game_state/Player/Player.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Game_state/Player/Player_im.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Game_state/Region/Region.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Game_state/Region/Region_im.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/AST/ASTError$UnknownIdentifier.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/AST/ASTError$UnknownSymbol.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/AST/ASTError.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/AST/Expr/BinaryOperationNode.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/AST/Expr/IdentifierNode.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/AST/Expr/NearbyNode.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/AST/Expr/NumberNode.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/AST/Expr/OpponentNode.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/AST/Expr/SpecialVariablesNode.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/AST/Node$ExprNode.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/AST/Node$StateNode.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/AST/Node.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/AST/State/AssignmentNode.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/AST/State/AttackNode.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/AST/State/BlockNode.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/AST/State/CollectNode.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/AST/State/DoneNode.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/AST/State/IfNode.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/AST/State/InvestNode.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/AST/State/MoveNode.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/AST/State/RelocateNode.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/AST/State/WhileNode.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/Parser/Parser.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/Parser/ParserError$CommandHasLeftoverToken.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/Parser/ParserError$CommandHasNotUseVariable.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/Parser/ParserError$CommandIsNoInput.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/Parser/ParserError$CommandIsUnknown.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/Parser/ParserError$CommandNotFound.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/Parser/ParserError$DirectionCommandIsUnknown.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/Parser/ParserError$InfoCommandIsUnknown.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/Parser/ParserError.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/Parser/ParserTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/Parser/Parser_im.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/Tokenizer/Tokenizer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/Tokenizer/TokenizerError$NextNull.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/Tokenizer/TokenizerError$UnknownWord.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/Tokenizer/TokenizerError.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/Tokenizer/Tokenizer_im.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Grammar/Tokenizer/Tokenizer_imTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Main.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/project/Type/Direction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/project.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game_state/Game/ReadData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game_state/Game/ReadData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$/../../UPBEAT_SPRING/demo">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2MzBv25xUIxfDy5z2wFpEsW7TvK" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "last_directory_selection": "D:/UPBEAT_SPRING/demo/src/main/java",
+    "last_opened_file_path": "D:/UPBEAT_SPRING/demo",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="Game_state.Game" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ce76e8a8-8d7f-4736-a41d-abb9201069c2" name="Changes" comment="" />
+      <created>1678760757601</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1678760757601</updated>
+    </task>
+    <servers />
+  </component>
+</project>
