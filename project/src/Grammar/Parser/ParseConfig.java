@@ -13,7 +13,7 @@ public class ParseConfig extends Parser_im{
 
     @Override
     public List<Node.StateNode> parse() {
-        List<Node.StateNode> parameters = new ArrayList<>(10);
+        List<Node.StateNode> parameters = new ArrayList<>();
         parseStatements(parameters);
         return parameters;
     }
