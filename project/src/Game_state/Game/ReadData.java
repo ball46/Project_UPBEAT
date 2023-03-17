@@ -48,15 +48,15 @@ public class ReadData {//This is default data
         }
         rows = map.getOrDefault("row", rows);
         cols = map.getOrDefault("col", cols);
-        initialPlanMinutes = map.getOrDefault("init_plan_min", initialPlanMinutes);
-        initialPlanSeconds = map.getOrDefault("init_plan_sec", initialPlanSeconds);
-        initialBudget = map.getOrDefault("init_budget", initialBudget);
-        initialCenterDeposit = map.getOrDefault("init_center_dep", initialCenterDeposit);
-        planRevisionMinutes = map.getOrDefault("plan_rev_min", planRevisionMinutes);
-        planRevisionSeconds = map.getOrDefault("plan_rev_sec", planRevisionSeconds);
-        revisionCost = map.getOrDefault("rev_cost", revisionCost);
-        maxDeposit = map.getOrDefault("max_dep", maxDeposit);
-        interestRatePercentage = map.getOrDefault("interest_pct", interestRatePercentage);
+        initialPlanMinutes = map.getOrDefault("initPlanMin", initialPlanMinutes);
+        initialPlanSeconds = map.getOrDefault("initPlanSec", initialPlanSeconds);
+        initialBudget = map.getOrDefault("initBudget", initialBudget);
+        initialCenterDeposit = map.getOrDefault("initCenterDep", initialCenterDeposit);
+        planRevisionMinutes = map.getOrDefault("planRevMin", planRevisionMinutes);
+        planRevisionSeconds = map.getOrDefault("planRevSec", planRevisionSeconds);
+        revisionCost = map.getOrDefault("revCost", revisionCost);
+        maxDeposit = map.getOrDefault("maxDep", maxDeposit);
+        interestRatePercentage = map.getOrDefault("interestPct", interestRatePercentage);
         if(initialPlanSeconds >= 60) throw new GameError.ConfigurationError("Seconds is between 0 - 59");
         if(planRevisionSeconds >= 60) throw new GameError.ConfigurationError("Seconds is between 0 - 59");
     }
