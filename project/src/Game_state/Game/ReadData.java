@@ -110,4 +110,5 @@ public class ReadData {//This is default data
     public static long getInterestRatePercentage() {return interestRatePercentage;}
 
     public static long getInitialDeposit() { return initialCenterDeposit;}
+    public static long getRevisionCost() {return revisionCost;}
 }

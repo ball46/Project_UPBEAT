@@ -20,6 +20,7 @@ public class Game_im implements Game{
     private Player current_player;
     private Region cityCrew;
     private int turn;
+    private String Plan1, Plan2;
 
     public Game_im(Player p1, Player p2, List<Region> territory) {
         this.territory = territory;
@@ -348,6 +349,15 @@ public class Game_im implements Game{
         Parser parser = new Parser_im(new Tokenizer_im(plan));
         List<Node.StateNode> nodes = parser.parse();
         beginTurn();
+        if(turn %2 == 0){
+            if(Plan2 == null) Plan2 = plan;
+            else if(!Plan2.equals(plan))
+                current_player.updateBudget(-ReadData.getRevisionCost());
+        }else{
+            if(Plan1 == null) Plan1 = plan;
+            else if(!Plan1.equals(plan))
+                current_player.updateBudget(-ReadData.getRevisionCost());
+        }
         for(Node.StateNode node : nodes){
             node.evaluate(this);
         }
