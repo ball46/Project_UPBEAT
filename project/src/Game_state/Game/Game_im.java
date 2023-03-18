@@ -351,12 +351,16 @@ public class Game_im implements Game{
         beginTurn();
         if(turn %2 == 0){
             if(Plan2 == null) Plan2 = plan;
-            else if(!Plan2.equals(plan))
+            else if(!Plan2.equals(plan)) {
                 current_player.updateBudget(-ReadData.getRevisionCost());
+                Plan2 = plan;
+            }
         }else{
             if(Plan1 == null) Plan1 = plan;
-            else if(!Plan1.equals(plan))
+            else if(!Plan1.equals(plan)) {
                 current_player.updateBudget(-ReadData.getRevisionCost());
+                Plan1 = plan;
+            }
         }
         for(Node.StateNode node : nodes){
             node.evaluate(this);
