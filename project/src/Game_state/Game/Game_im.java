@@ -32,6 +32,7 @@ public class Game_im implements Game{
         this.current_player = this.player1;
         this.turn = 1;
         nameOwnerRegions = new String[row][column];
+        nameRegion();
     }
 
     private boolean checkBudget() {
@@ -314,6 +315,11 @@ public class Game_im implements Game{
     @Override
     public Player getWinner() {
         return winner;
+    }
+
+    @Override
+    public String[][] getNameOwnerRegion() {
+        return nameOwnerRegions;
     }
 
     public void endTurn() {

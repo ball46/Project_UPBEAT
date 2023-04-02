@@ -32,5 +32,6 @@ public interface Game {
     Player getPlayer1();
     Player getPlayer2();
     Player getWinner();
+    String[][] getNameOwnerRegion();
     void sendPlan(String plan);
 }
