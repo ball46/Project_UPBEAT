@@ -16,11 +16,14 @@ import java.util.Random;
 public class Game_im implements Game{
     private final Player player1, player2;
     private final List<Region> territory;
+    private final String[][] nameOwnerRegions;
     private final long actionCost = 1;
     private Player current_player, winner;
     private Region cityCrew;
     private int turn;
     private String Plan1, Plan2;
+    private final int row = (int) ReadData.getRows();
+    private final int column = (int) ReadData.getCols();
 
     public Game_im(Player p1, Player p2, List<Region> territory) {
         this.territory = territory;
@@ -28,6 +31,7 @@ public class Game_im implements Game{
         this.player2 = p2;
         this.current_player = this.player1;
         this.turn = 1;
+        nameOwnerRegions = new String[row][column];
     }
 
     private boolean checkBudget() {
@@ -355,8 +359,20 @@ public class Game_im implements Game{
             throw new IllegalStateException("You cannot send");
         beginTurn();
         evaluatePlan(plan);
+        nameRegion();
         winner = findWinner();
         endTurn();
+    }
+
+    private void nameRegion() {
+        for(int i = 0; i < row; i++){
+            for(int j = 0; j < column; j++){
+                Player Owner = territory.get(((i*column)+(j))).getOwner();
+                if(Owner != null)
+                    nameOwnerRegions[i][j] = territory.get(((i*column)+(j))).getOwner().getName();
+                else nameOwnerRegions[i][j] = "";
+            }
+        }
     }
 
     private Player findWinner() {
