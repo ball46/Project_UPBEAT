@@ -17,23 +17,23 @@ public class ReadData {//This is default data
 
     private static long cols = 9;
 
-    private static long initialPlanMinutes = 5;//number of minutes to initial construction plan
+    private static long initialPlanMinutes;//number of minutes to initial construction plan
 
-    private static long initialPlanSeconds = 0;
+    private static long initialPlanSeconds;
 
-    private static long initialBudget = 10000;//is my money
+    private static long initialBudget;//is my money
 
-    private static long initialCenterDeposit = 100;//is my money in cityCenter
+    private static long initialCenterDeposit;//is my money in cityCenter
 
-    private static long planRevisionMinutes = 30;//number of minutes to revisions construction plan
+    private static long planRevisionMinutes;//number of minutes to revisions construction plan
 
-    private static long planRevisionSeconds = 0;
+    private static long planRevisionSeconds;
 
-    private static long revisionCost = 100;//cost to revise plan
+    private static long revisionCost;//cost to revise plan
 
-    private static long maxDeposit = 1000000;//maximum deposit for each region
+    private static long maxDeposit;//maximum deposit for each region
 
-    private static long interestRatePercentage = 5;
+    private static long interestRatePercentage;
 
     private static List<Region> territory;
 
@@ -46,17 +46,19 @@ public class ReadData {//This is default data
                 throw new ParserError.CommandNotFound(node.toString());
             ((AssignmentNode) node).evaluate(map);
         }
-        rows = map.getOrDefault("row", rows);
-        cols = map.getOrDefault("col", cols);
-        initialPlanMinutes = map.getOrDefault("initPlanMin", initialPlanMinutes);
-        initialPlanSeconds = map.getOrDefault("initPlanSec", initialPlanSeconds);
-        initialBudget = map.getOrDefault("initBudget", initialBudget);
-        initialCenterDeposit = map.getOrDefault("initCenterDep", initialCenterDeposit);
-        planRevisionMinutes = map.getOrDefault("planRevMin", planRevisionMinutes);
-        planRevisionSeconds = map.getOrDefault("planRevSec", planRevisionSeconds);
-        revisionCost = map.getOrDefault("revCost", revisionCost);
-        maxDeposit = map.getOrDefault("maxDep", maxDeposit);
-        interestRatePercentage = map.getOrDefault("interestPct", interestRatePercentage);
+        rows = map.getOrDefault( "row", 9L);
+        cols = map.getOrDefault("col", 9L);
+        initialPlanMinutes = map.getOrDefault("initPlanMin", 5L);
+        initialPlanSeconds = map.getOrDefault("initPlanSec", 0L);
+        initialBudget = map.getOrDefault("initBudget", 10000L);
+        initialCenterDeposit = map.getOrDefault("initCenterDep", 100L);
+        planRevisionMinutes = map.getOrDefault("planRevMin", 30L);
+        planRevisionSeconds = map.getOrDefault("planRevSec", 0L);
+        revisionCost = map.getOrDefault("revCost", 100L);
+        maxDeposit = map.getOrDefault("maxDep", 1000000L);
+        interestRatePercentage = map.getOrDefault("interestPct", 5L);
+        if(rows <= 0) throw  new GameError.ConfigurationError("rows must be greater than 0");
+        if(cols <= 0) throw new GameError.ConfigurationError("column must be greater than 0");
         if(initialPlanSeconds >= 60) throw new GameError.ConfigurationError("Seconds is between 0 - 59");
         if(planRevisionSeconds >= 60) throw new GameError.ConfigurationError("Seconds is between 0 - 59");
     }

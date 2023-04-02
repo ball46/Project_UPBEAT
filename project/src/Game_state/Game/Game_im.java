@@ -17,7 +17,7 @@ public class Game_im implements Game{
     private final Player player1, player2;
     private final List<Region> territory;
     private final long actionCost = 1;
-    private Player current_player;
+    private Player current_player, winner;
     private Region cityCrew;
     private int turn;
     private String Plan1, Plan2;
@@ -307,6 +307,11 @@ public class Game_im implements Game{
         return player2;
     }
 
+    @Override
+    public Player getWinner() {
+        return winner;
+    }
+
     public void endTurn() {
         if(current_player == this.player1){
             current_player = this.player2;
@@ -346,9 +351,29 @@ public class Game_im implements Game{
 
     @Override
     public void sendPlan(String plan){
+        if(winner != null)
+            throw new IllegalStateException("You cannot send");
+        beginTurn();
+        evaluatePlan(plan);
+        winner = findWinner();
+        endTurn();
+    }
+
+    private Player findWinner() {
+        if(player1.getBudget() == 0)
+            return player2;
+        else if(player2.getBudget() == 0)
+            return player1;
+        if(player1.getCityCenter() == null)
+            return player2;
+        else if(player2.getCityCenter() == null)
+            return player1;
+        return null;
+    }
+
+    private void evaluatePlan(String plan){
         Parser parser = new Parser_im(new Tokenizer_im(plan));
         List<Node.StateNode> nodes = parser.parse();
-        beginTurn();
         if(turn %2 == 0){
             if(Plan2 == null) Plan2 = plan;
             else if(!Plan2.equals(plan)) {
@@ -365,6 +390,5 @@ public class Game_im implements Game{
         for(Node.StateNode node : nodes){
             node.evaluate(this);
         }
-        endTurn();
     }
 }

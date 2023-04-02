@@ -31,5 +31,6 @@ public interface Game {
     Player getCurrentPlayer();
     Player getPlayer1();
     Player getPlayer2();
+    Player getWinner();
     void sendPlan(String plan);
 }
