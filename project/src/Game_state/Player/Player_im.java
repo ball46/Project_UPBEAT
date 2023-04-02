@@ -8,13 +8,11 @@ import java.util.Map;
 public class Player_im implements Player{
     private final String name;
     private long budget;
-    private boolean life;
     private Region CityCenter;//location is row * col
     private final Map<String, Long> identifier;
     public Player_im(String name, long budget, Region CityCenter) {
         this.name = name;
         this.budget = budget;
-        this.life = true;
         this.CityCenter = CityCenter;
         this.identifier = new HashMap<>();
     }
@@ -42,11 +40,6 @@ public class Player_im implements Player{
     @Override
     public Region getCityCenter() {
         return this.CityCenter;
-    }
-
-    @Override
-    public boolean life() {
-        return this.life;
     }
 
     @Override
